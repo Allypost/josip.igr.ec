@@ -1,0 +1,72 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { Icon } from "astro-icon/components";
+import { cn } from "~/app/css";
+
+type Props = HTMLAttributes<"button">;
+---
+
+<button
+  title="Toggle theme"
+  {...Astro.props}
+  class={cn("cursor-pointer", Astro.props.class)}
+>
+  <Icon name="mdi:lightbulb" onclick="handleClickToggleTheme()" />
+  <script is:inline data-astro-rerun>
+    (() => {
+      /**
+       * @type {() => "light" | "dark" | null}
+       */
+      const overwrittenTheme = () =>
+        (typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")) ||
+        null;
+
+      const mediaTheme = () =>
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+
+      const theme = () => overwrittenTheme() || mediaTheme();
+
+      /**
+       * @param {"light" | "dark" | null} theme
+       */
+      const applyTheme = (theme = null) => {
+        const rt = theme || overwrittenTheme();
+
+        if (rt) {
+          window.localStorage.setItem("theme", rt);
+        }
+
+        const cl = document.documentElement.classList;
+
+        const mt = mediaTheme();
+
+        if (mt !== rt || !cl.contains(rt)) {
+          cl.value = rt ?? "";
+        } else {
+          cl.value = "";
+        }
+      };
+
+      applyTheme();
+
+      const handleToggleClick = () => {
+        const t = theme();
+
+        if (!document.documentElement.classList.contains(t)) {
+          return applyTheme();
+        }
+
+        if (t === "light") {
+          applyTheme("dark");
+        } else {
+          applyTheme("light");
+        }
+      };
+
+      window.handleClickToggleTheme = handleToggleClick;
+    })();
+  </script>
+</button>
