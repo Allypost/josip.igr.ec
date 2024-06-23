@@ -1,16 +1,14 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry } from "astro:content";
 
 import { cn } from "~/app/css";
+import { getVisibleBlogPosts } from "~/app/helpers";
 import AppPicture from "~components/AppPicture.astro";
 import FormattedDate from "~components/FormattedDate.astro";
 import MainLayout from "~layouts/MainLayout.astro";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog", ({ data }) =>
-    import.meta.env.PROD ? data.draft !== true : true,
-  );
-  return posts.map((post) => ({
+  return (await getVisibleBlogPosts()).map((post) => ({
     params: {
       slug: post.slug,
     },

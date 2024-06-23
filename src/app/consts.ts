@@ -1,5 +1,7 @@
 const trimUrl = (url: string) => url.trim().replaceAll(/\/*$/g, "");
 
+export const FALSY_ENV_STRINGS = ["false", "f", "no", "n", "0", ""] as const;
+
 export const SITE_TITLE = "Josip's site";
 
 export const SITE_DESCRIPTION =
@@ -10,6 +12,12 @@ export const REMOTE_CDN_URL = trimUrl(
 );
 
 export const SITE_URL = trimUrl(import.meta.env.SITE);
+
+export const SHOW_DRAFTS_IN_PRODUCTION = !FALSY_ENV_STRINGS.includes(
+  String(import.meta.env.SHOW_DRAFTS_IN_PRODUCTION ?? "false") as never,
+);
+
+export const SHOW_DRAFTS = !import.meta.env.PROD || SHOW_DRAFTS_IN_PRODUCTION;
 
 export const technologies = [
   "TypeScript",

@@ -1,16 +1,10 @@
 ---
-import { getCollection } from "astro:content";
-
 import { cn } from "~/app/css";
+import { getVisibleBlogPosts } from "~/app/helpers";
 import FormattedDate from "~components/FormattedDate.astro";
 import MainLayout from "~layouts/MainLayout.astro";
 
-const posts = (
-  await getCollection(
-    "blog",
-    ({ data }) => !import.meta.env.PROD || !data.draft,
-  )
-).sort((lt, gt) => gt.data.pubDate.valueOf() - lt.data.pubDate.valueOf());
+const posts = await getVisibleBlogPosts();
 ---
 
 <MainLayout
