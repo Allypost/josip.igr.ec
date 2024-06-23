@@ -50,6 +50,7 @@ type Props = HTMLAttributes<"button">;
         }
       };
 
+      applyTheme();
       if (!overwrittenTheme()) {
         applyTheme(mediaTheme());
       }
@@ -58,7 +59,7 @@ type Props = HTMLAttributes<"button">;
         const t = theme();
 
         if (!document.documentElement.classList.contains(t)) {
-          return applyTheme(t);
+          return applyTheme();
         }
 
         if (t === "light") {
