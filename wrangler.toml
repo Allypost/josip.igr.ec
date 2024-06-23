@@ -1,1 +1,6 @@
+name = "my-site"
+pages_build_output_dir = "dist"
+compatibility_date = "2024-06-23"
+
+[env.production]
 compatibility_date = "2024-06-23"
