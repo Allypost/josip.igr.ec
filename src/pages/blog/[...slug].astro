@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
 
+import { cn } from "~/app/css";
 import AppPicture from "~components/AppPicture.astro";
 import FormattedDate from "~components/FormattedDate.astro";
 import MainLayout from "~layouts/MainLayout.astro";
@@ -22,8 +23,15 @@ export type Props = CollectionEntry<"blog">;
 const post = Astro.props;
 const { Content, remarkPluginFrontmatter } = await post.render();
 
-const { title, description, heroImage, heroImageAlt, pubDate, updatedDate } =
-  post.data;
+const {
+  title,
+  description,
+  heroImage,
+  heroImageAlt,
+  pubDate,
+  updatedDate,
+  draft,
+} = post.data;
 ---
 
 <MainLayout
@@ -33,29 +41,36 @@ const { title, description, heroImage, heroImageAlt, pubDate, updatedDate } =
   mainClass="max-w-5xl"
 >
   <article>
-    <h1 class="mb-2 py-4 text-center text-3xl font-bold tracking-wider">
-      {title}
-    </h1>
-
     <div
-      class="mb-8 flex flex-wrap justify-center opacity-50 [&>*]:before:content-[',_']"
+      class={cn({
+        "rounded-md bg-red-500/40 p-2 before:block before:text-center before:text-3xl before:content-['❗DRAFT❗']":
+          draft,
+      })}
     >
-      <span class="before:!content-['']">
-        Published on <FormattedDate date={pubDate} />
-      </span>
-      {
-        updatedDate && (
-          <span>
-            last updated
-            <FormattedDate date={updatedDate} />
-          </span>
-        )
-      }
-      <span>{remarkPluginFrontmatter.wordsOnPage} words</span>
-      <span>{remarkPluginFrontmatter.minutesRead}</span>
-    </div>
+      <h1 class="mb-2 py-4 text-center text-3xl font-bold tracking-wider">
+        {title}
+      </h1>
 
-    <p class="mb-4">{description}</p>
+      <div
+        class="mb-8 flex flex-wrap justify-center opacity-50 [&>*]:before:content-[',_']"
+      >
+        <span class="before:!content-['']">
+          Published on <FormattedDate date={pubDate} />
+        </span>
+        {
+          updatedDate && (
+            <span>
+              last updated
+              <FormattedDate date={updatedDate} />
+            </span>
+          )
+        }
+        <span>{remarkPluginFrontmatter.wordsOnPage} words</span>
+        <span>{remarkPluginFrontmatter.minutesRead}</span>
+      </div>
+
+      <p class="mb-4">{description}</p>
+    </div>
 
     <div class="mb-4">
       {
