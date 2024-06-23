@@ -1,0 +1,79 @@
+---
+import { Icon } from "astro-icon/components";
+
+import { links, technologies } from "~/app/consts";
+import MainLayout from "~layouts/MainLayout.astro";
+---
+
+<MainLayout title="About me" mainClass="mt-4 flex w-full flex-col gap-8">
+  <h1 class="text-center text-4xl font-bold">
+    <pre><code><span class="opacity-50 text-highlight">$</span> <span>whoami</span></code></pre>
+  </h1>
+
+  <p>
+    I'm a full-stack engineer who enjoys learning new things and really
+    understanding how stuff works.
+  </p>
+
+  <p>
+    I also like to minimize complexity and cruft in both code and design.
+    Especially with UI/UX, often overlooked by developers as "stuff the posh
+    people from design do", blindly following either side can lead to poor
+    implementations and frustration on both sides which I try to avoid at all
+    cost.
+  </p>
+
+  <p>
+    I love to learn about things, but I also love to teach. I've been a lecturer
+    and examiner for 5 years on a couple subjects at FER (<a
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Basic Use of Linux Operating System"
+      href="https://www.fer.unizg.hr/en/course/okosl">OKOSL</a
+    >, <a
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Advanced Use of Linux Operating System"
+      href="https://www.fer.unizg.hr/en/course/nkosl">NKOSL</a
+    >), and love to give talks if given the opportunity (most recently at <a
+      target="_blank"
+      rel="noopener noreferrer"
+      href="https://github.com/zgphp/zgphp-meetup-talks/blob/177a2acb0ae8969a435a9a05eb8ef4d1b46ccb0b/meetups/2024/05/josip-igrec--docker-what-why-and-how.md"
+      >ZgPHP on the topic of Docker</a
+    >).
+  </p>
+
+  <div>
+    <h3 id="tech" class="text-xl font-bold">Technologies I use/have used:</h3>
+    <div class="flex flex-wrap gap-2">
+      {
+        technologies.map((t) => (
+          <span class="cursor-default rounded-md bg-base-fg px-2 py-1 font-bold text-base-bg opacity-85 transition-opacity duration-500 hover:opacity-100 hover:transition-none">
+            {t}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="flex flex-col items-start">
+    <h3 class="text-xl font-bold">Links to my socials:</h3>
+    <ul>
+      {
+        Object.values(links).map((x) => (
+          <li class="my-1">
+            <a
+              href={x.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="link-no-external link-monochrome flex items-center gap-2 px-1 py-0.5"
+            >
+              <Icon name={x.icon} />
+              <span>{x.text}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</MainLayout>

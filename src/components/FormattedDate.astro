@@ -1,0 +1,40 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+import { cn } from "~/app/css";
+
+type Props = Omit<HTMLAttributes<"time">, "datetime"> & {
+  date: Date;
+};
+
+const { date } = Astro.props;
+---
+
+<time
+  datetime={date.toISOString()}
+  title={date.toLocaleDateString("en-US", {
+    dateStyle: "long",
+  })}
+  class={cn("cursor-help", Astro.props.class)}
+  {...Astro.props}
+>
+  {
+    date.toLocaleDateString("ja-JP", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+  }
+  <script is:inline data-astro-rerun>
+    (() => {
+      document.querySelectorAll("time").forEach((el) => {
+        el.setAttribute(
+          "title",
+          new Date().toLocaleDateString(undefined, {
+            dateStyle: "long",
+          }),
+        );
+      });
+    })();
+  </script>
+</time>

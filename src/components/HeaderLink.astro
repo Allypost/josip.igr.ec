@@ -1,0 +1,27 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+import { cn } from "~/app/css";
+
+type Props = HTMLAttributes<"a">;
+
+const { href, class: className, ...props } = Astro.props;
+
+const { pathname } = Astro.url;
+const subpath = pathname.match(/[^/]+/g);
+const isActive = href === pathname || href === `/${subpath?.[0]}`;
+---
+
+<a
+  href={href}
+  class:list={cn([
+    "link-no-invert inline-block border-b-2 border-transparent no-underline hover:border-black/20 dark:hover:border-white/20",
+    {
+      "!border-current font-bold": isActive,
+    },
+    className,
+  ])}
+  {...props}
+>
+  <slot />
+</a>

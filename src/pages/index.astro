@@ -1,0 +1,56 @@
+---
+import { links, technologies } from "~/app/consts";
+import MainLayout from "~layouts/MainLayout.astro";
+---
+
+<MainLayout mainClass="mt-4 flex flex-col gap-8 text-lg">
+  <div class="text-center">
+    <h1 class="text-5xl">Hello!</h1>
+    <h2 class="text-3xl">I'm <strong>Josip</strong></h2>
+  </div>
+
+  <div>
+    <p>
+      I'm a full-stack engineer who enjoys learning new things and really
+      understanding how stuff works.
+    </p>
+    <p>I also like to minimize complexity and cruft in both code and design.</p>
+  </div>
+
+  <div>
+    <h3>A few technologies I have experience with:</h3>
+    <div class="flex flex-wrap gap-2">
+      {
+        technologies
+          .slice(0, 13)
+          .map((t) => (
+            <span class="cursor-default rounded-md bg-base-fg px-2 py-1 font-bold text-base-bg opacity-85 transition-opacity duration-500 hover:opacity-100 hover:transition-none">
+              {t}
+            </span>
+          ))
+      }
+      <a
+        class="link-monochrome rounded-md bg-base-fg px-2 py-1 font-bold text-base-bg no-underline opacity-85 transition-opacity duration-500 hover:opacity-100 hover:transition-none"
+        href="/about#tech">...</a
+      >
+    </div>
+  </div>
+
+  <div>
+    If you want to know more about me, you can check out my <a
+      class="font-bold"
+      href="/about">about page</a
+    > or read some of my writings on my <a class="font-bold" href="/blog"
+      >blog</a
+    >.
+  </div>
+
+  <div>
+    If you are interested in working with me, feel free to get in touch via
+    <a href={links.linkedin.href} target="_blank" rel="noopener noreferrer"
+      >LinkedIn</a
+    > or <a href={links.github.href} target="_blank" rel="noopener noreferrer"
+      >GitHub</a
+    >.
+  </div>
+</MainLayout>

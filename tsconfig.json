@@ -1,0 +1,23 @@
+{
+  "extends": "astro/tsconfigs/strictest",
+  "compilerOptions": {
+    "strictNullChecks": true,
+    // "verbatimModuleSyntax": true,
+    "exactOptionalPropertyTypes": false,
+    "baseUrl": ".",
+    "paths": {
+      "~components/*": [
+        "src/components/*"
+      ],
+      "~layouts/*": [
+        "src/layouts/*"
+      ],
+      "~public/*": [
+        "public/*"
+      ],
+      "~/*": [
+        "src/*"
+      ]
+    }
+  }
+}

@@ -1,0 +1,257 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+
+import AppPicture from "~components/AppPicture.astro";
+import FormattedDate from "~components/FormattedDate.astro";
+import MainLayout from "~layouts/MainLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) =>
+    import.meta.env.PROD ? data.draft !== true : true,
+  );
+  return posts.map((post) => ({
+    params: {
+      slug: post.slug,
+    },
+    props: post,
+  }));
+}
+
+export type Props = CollectionEntry<"blog">;
+
+const post = Astro.props;
+const { Content, remarkPluginFrontmatter } = await post.render();
+
+const { title, description, heroImage, heroImageAlt, pubDate, updatedDate } =
+  post.data;
+---
+
+<MainLayout
+  title={title}
+  description={description}
+  image={heroImage}
+  mainClass="max-w-5xl"
+>
+  <article>
+    <h1 class="mb-2 py-4 text-center text-3xl font-bold tracking-wider">
+      {title}
+    </h1>
+
+    <div
+      class="mb-8 flex flex-wrap justify-center opacity-50 [&>*]:before:content-[',_']"
+    >
+      <span class="before:!content-['']">
+        Published on <FormattedDate date={pubDate} />
+      </span>
+      {
+        updatedDate && (
+          <span>
+            last updated
+            <FormattedDate date={updatedDate} />
+          </span>
+        )
+      }
+      <span>{remarkPluginFrontmatter.wordsOnPage} words</span>
+      <span>{remarkPluginFrontmatter.minutesRead}</span>
+    </div>
+
+    <p class="mb-4">{description}</p>
+
+    <div class="mb-4">
+      {
+        heroImage && (
+          <AppPicture
+            src={heroImage}
+            alt={heroImageAlt}
+            loading="eager"
+            class="mx-auto block aspect-video w-full rounded-md object-cover shadow"
+          />
+        )
+      }
+    </div>
+
+    <div class="blog-post-content">
+      <Content />
+    </div>
+  </article>
+
+  <a
+    href="#__header"
+    class="link-no-invert fixed bottom-8 right-4 z-20 block aspect-square h-[1.25em] rounded-md bg-base-fg text-center text-3xl font-bold text-base-bg no-underline opacity-50 transition-all duration-300 hover:opacity-100 hover:transition-none"
+    title="Back to top"
+    aria-label="Back to top"
+  >
+    &uarr;
+  </a>
+</MainLayout>
+
+<style is:global>
+  .blog-post-content {
+    @apply leading-relaxed tracking-normal;
+
+    a[href^="#"] {
+      scroll-margin-top: 6rem;
+    }
+
+    .code-container {
+      @apply flex flex-col rounded-md border border-[--color-code-bg] p-0.5;
+      box-shadow: 0 0 4px var(--color-code-bg);
+
+      .code-title {
+        @apply m-0 mr-auto rounded-t border-t-2 border-highlight bg-[--color-code-bg] px-3 py-2 font-bold;
+      }
+
+      .code-title + pre {
+        @apply rounded-t-none border-t-0;
+      }
+
+      pre.code-contents,
+      pre.code-contents span {
+        @apply !bg-[--color-code-bg] dark:!text-[--dark-color] dark:![font-style:--dark-font-style,inherit] dark:![font-weight:--dark-font-weight,inherit] dark:![text-decoration:--dark-text-decoration,inherit];
+      }
+    }
+
+    pre {
+      @apply overflow-clip whitespace-pre-wrap break-words rounded-md !bg-neutral-800 px-2 py-1;
+    }
+
+    code {
+      counter-increment: step calc(var(--start, 1) - 1);
+      counter-reset: step;
+
+      .line::before {
+        @apply mr-4 inline-block w-4 text-right text-base-fg opacity-40;
+        counter-increment: step;
+        content: counter(step);
+      }
+
+      .line:last-child:empty {
+        display: none;
+      }
+    }
+
+    kbd {
+      @apply rounded bg-neutral-900 px-1 py-0.5 text-neutral-100 dark:bg-neutral-200 dark:text-neutral-900;
+    }
+
+    p {
+      @apply my-4;
+    }
+
+    p + p {
+      @apply mt-0;
+    }
+
+    blockquote {
+      @apply border-l-4 border-gray-300 pl-4;
+
+      p {
+        @apply mb-0;
+      }
+    }
+
+    table {
+      @apply w-full border-separate border-spacing-0 rounded border-2 border-current;
+
+      th {
+        @apply border-b-2 border-l-2 border-current p-2;
+
+        &:first-child {
+          @apply border-l-0;
+        }
+      }
+
+      td {
+        @apply border-b-2 border-l-2 border-current p-2;
+
+        &:first-child {
+          @apply border-l-0;
+        }
+      }
+
+      tr:last-child td {
+        @apply border-b-0;
+      }
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply mb-2 mt-6 font-bold;
+
+      & + & {
+        @apply mt-2;
+      }
+
+      & + p {
+        @apply mt-0;
+      }
+
+      > a {
+        @apply ml-2 hidden items-center justify-center px-1 font-mono no-underline;
+
+        & > .icon-link::after {
+          content: "#";
+        }
+      }
+
+      &:hover > a:has(.icon-link) {
+        @apply inline-flex;
+      }
+    }
+
+    h1 {
+      @apply text-3xl;
+    }
+    h2 {
+      @apply text-2xl;
+    }
+    h3 {
+      @apply text-xl;
+    }
+    h4 {
+      @apply text-lg;
+    }
+    h5 {
+      @apply text-base;
+    }
+    h6 {
+      @apply text-sm;
+    }
+
+    ul {
+      @apply ml-4 list-inside list-disc;
+    }
+
+    ol {
+      @apply ml-4 list-inside list-decimal;
+    }
+
+    li > p {
+      @apply my-0 inline-block;
+    }
+
+    img {
+      @apply w-full overflow-hidden rounded-md object-contain;
+    }
+
+    figure {
+      @apply mx-auto max-w-[90%];
+
+      figcaption {
+        @apply p-1 opacity-60;
+      }
+    }
+
+    figure + figure {
+      @apply mt-4;
+    }
+
+    figure:has(figcaption) + figure {
+      @apply mt-6;
+    }
+  }
+</style>

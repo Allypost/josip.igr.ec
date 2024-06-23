@@ -1,0 +1,17 @@
+---
+import MainLayout from "~layouts/MainLayout.astro";
+---
+
+<MainLayout
+  mainClass="mx-auto my-auto flex w-full max-w-full flex-col items-center justify-center"
+>
+  <h1 class="text-9xl font-bold">404</h1>
+  <p class="text-4xl">Page not found</p>
+  <p class="mt-4 text-xl">Go back to <a class="underline" href="/">home</a></p>
+</MainLayout>
+
+<style is:global>
+  footer {
+    margin-top: 0 !important;
+  }
+</style>

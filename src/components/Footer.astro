@@ -1,0 +1,58 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { Icon } from "astro-icon/components";
+
+import { cn } from "~/app/css";
+import { links } from "~/app/consts";
+
+type Props = HTMLAttributes<"footer">;
+
+const today = new Date();
+const socials = [
+  {
+    text: "Follow me on Mastodon",
+    href: links.mastodon.href,
+    icon: links.mastodon.icon,
+  },
+  {
+    text: "Follow me on GitHub",
+    href: links.github.href,
+    icon: links.github.icon,
+  },
+  {
+    text: "Add me on LinkedIn",
+    href: links.linkedin.href,
+    icon: links.linkedin.icon,
+  },
+];
+---
+
+<footer class={cn("flex text-center", Astro.props.class)} {...Astro.props}>
+  <div class="mx-auto rounded-t-lg bg-base-bg p-4 pb-2">
+    <div class="opacity-50">
+      &copy; <span id="footer__current-year">{today.getFullYear()}</span> Josip Igrec.
+      All rights reserved.
+    </div>
+    <div class="mt-2 flex justify-center gap-4 text-2xl">
+      {
+        socials.map((social) => (
+          <a
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="link-no-invert link-no-external opacity-50 transition-opacity duration-300 hover:opacity-100 hover:transition-none"
+          >
+            <span class="sr-only">{social.text}</span>
+            <Icon name={social.icon} />
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</footer>
+<script>
+  const el = document.getElementById("footer__current-year");
+  if (el) {
+    el.innerText = String(new Date().getFullYear());
+  }
+</script>

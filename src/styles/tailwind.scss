@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: pretty;
+    text-wrap: balance;
+    @apply font-display tracking-widest;
+  }
+}
+
+@layer utilities {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .pl-safe {
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .pr-safe {
+    padding-right: env(safe-area-inset-right);
+  }
+
+  .px-safe {
+    padding-right: env(safe-area-inset-right);
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .py-safe {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+@mixin incl-light {
+  --color-base-fg: theme(colors.stone.900);
+  --color-base-bg: theme(colors.stone.200);
+  --color-highlight: #6920a5;
+  --color-code-bg: theme(colors.neutral.100);
+}
+
+@mixin incl-dark {
+  --color-base-fg: theme(colors.stone.200);
+  --color-base-bg: theme(colors.stone.900);
+  --color-highlight: #c58bff;
+  --color-code-bg: theme(colors.neutral.800);
+}
+
+:root {
+  @include incl-light();
+}
+.dark {
+  @include incl-dark();
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include incl-dark();
+  }
+  .light {
+    @include incl-light();
+  }
+}
+
+a {
+  @apply rounded-sm underline transition-colors duration-300 hover:no-underline;
+
+  &:not(.link-no-invert) {
+    @apply hover:bg-highlight hover:text-base-bg hover:transition-none;
+
+    &:not(.link-monochrome) {
+      @apply text-highlight hover:text-base-bg;
+    }
+  }
+
+  &[href^="http"]:not(.link-no-external) {
+    &::after {
+      @apply relative bottom-[0.5em] ml-[.3em] inline-flex -rotate-45 text-[.6em] content-["↪"];
+    }
+  }
+}
+
+html {
+  @apply scroll-smooth;
+}
+
+html body {
+  line-height: normal;
+}

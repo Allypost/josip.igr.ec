@@ -1,0 +1,47 @@
+---
+import { getCollection } from "astro:content";
+
+import { cn } from "~/app/css";
+import FormattedDate from "~components/FormattedDate.astro";
+import MainLayout from "~layouts/MainLayout.astro";
+
+const posts = (
+  await getCollection(
+    "blog",
+    ({ data }) => !import.meta.env.PROD || !data.draft,
+  )
+).sort((lt, gt) => gt.data.pubDate.valueOf() - lt.data.pubDate.valueOf());
+---
+
+<MainLayout
+  title="Blog"
+  description="A blog where I rant and write about whatever comes to mind. Factuality is not guaranteed."
+>
+  <section>
+    <h1 class="text-center text-3xl font-bold">Blog posts</h1>
+
+    {
+      posts.length > 0 ? (
+        <ul>
+          {posts.map((post) => (
+            <li class="mt-2">
+              <article
+                class={cn("flex items-center gap-2 rounded", {
+                  "bg-red-500/40": post.data.draft,
+                })}
+              >
+                {post.data.draft ? <span>❗DRAFT❗</span> : null}
+                <FormattedDate class="opacity-50" date={post.data.pubDate} />
+                <a class="link-monochrome px-1" href={`/blog/${post.slug}/`}>
+                  <h2 class="line-clamp-1 text-xl">{post.data.title}</h2>
+                </a>
+              </article>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="mt-8 text-center">No posts yet! Check back later.</p>
+      )
+    }
+  </section>
+</MainLayout>
