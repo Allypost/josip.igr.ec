@@ -50,13 +50,15 @@ type Props = HTMLAttributes<"button">;
         }
       };
 
-      applyTheme();
+      if (!overwrittenTheme()) {
+        applyTheme(mediaTheme());
+      }
 
       const handleToggleClick = () => {
         const t = theme();
 
         if (!document.documentElement.classList.contains(t)) {
-          return applyTheme();
+          return applyTheme(t);
         }
 
         if (t === "light") {
