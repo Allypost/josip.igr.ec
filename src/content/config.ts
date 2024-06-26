@@ -22,9 +22,16 @@ const blog = defineCollection({
       .object({
         title: z.string(),
         description: z.string(),
-        pubDate: z.coerce.date(),
-        updatedDate: z.coerce.date().optional(),
+        pubDate: z.coerce.date().transform((d) => {
+          d.setUTCHours(12);
+          return d;
+        }),
+        updatedDate: z.coerce.date().transform((d) => {
+          d.setUTCHours(12);
+          return d;
+        }).optional(),
         draft: z.boolean().optional(),
+        tags: z.array(z.string()).optional(),
       })
       .and(
         optionalWholeObject({

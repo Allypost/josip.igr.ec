@@ -23,6 +23,7 @@ const posts = await getVisibleBlogPosts();
                 class={cn("flex items-center gap-2 rounded", {
                   "bg-red-500/40": post.data.draft,
                 })}
+                data-tags={post.data.tags?.join(", ")}
               >
                 {post.data.draft ? <span>❗DRAFT❗</span> : null}
                 <FormattedDate class="opacity-50" date={post.data.pubDate} />
