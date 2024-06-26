@@ -1,4 +1,18 @@
+import type { ZodNever, ZodOptional, ZodRawShape } from "astro/zod";
 import { defineCollection, z } from "astro:content";
+
+const optionalWholeObject = <T extends ZodRawShape>(x: T) => {
+  const xObj = z.object(x);
+  type TKey = keyof z.infer<typeof xObj>;
+  const keys = Object.keys(xObj.shape) as unknown as TKey[];
+  const neverObject = Object.fromEntries(
+    keys.map((k) => [k, z.never().optional()] as const),
+  ) as {
+    [K in TKey]: ZodOptional<ZodNever>;
+  };
+
+  return z.union([z.object(neverObject), xObj]);
+};
 
 const blog = defineCollection({
   type: "content",
@@ -13,16 +27,16 @@ const blog = defineCollection({
         draft: z.boolean().optional(),
       })
       .and(
-        z.union([
-          z.object({
-            heroImage: z.never().optional(),
-            heroImageAlt: z.never().optional(),
-          }),
-          z.object({
-            heroImage: image(),
-            heroImageAlt: z.string(),
-          }),
-        ]),
+        optionalWholeObject({
+          heroImage: image(),
+          heroImageAlt: z.string(),
+        }),
+      )
+      .and(
+        optionalWholeObject({
+          socialImage: image(),
+          socialImageAlt: z.string(),
+        }),
       ),
 });
 

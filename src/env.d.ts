@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/triple-slash-reference */
-/* eslint-disable @typescript-eslint/consistent-type-definitions */
 /// <reference path="../.astro/env.d.ts" />
 /// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />

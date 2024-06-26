@@ -15,6 +15,7 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
+  ...astroPlugin.configs.recommended,
   {
     languageOptions: {
       parserOptions: {
@@ -23,11 +24,8 @@ export default tseslint.config(
       },
     },
   },
-  ...astroPlugin.configs.recommended,
   {
     files: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
-  },
-  {
     plugins: {
       prettier: prettierPlugin,
       "simple-import-sort": simpleImportSort,

@@ -6,21 +6,41 @@ import { SEO } from "astro-seo";
 import { SITE_DESCRIPTION, SITE_TITLE } from "~/app/consts";
 import { remoteCdnUrl } from "~/app/helpers";
 
+export type ImageProp = {
+  data?: string | ImageMetadata;
+  alt?: string;
+};
+
 type Props = {
   title?: string;
   description?: string;
-  image?: string | ImageMetadata;
+  image?: ImageProp;
 };
 
-const {
-  title,
-  description = SITE_DESCRIPTION,
-  image: imageProp = "/blog-placeholder-1.jpg",
-} = Astro.props;
+const { title, description = SITE_DESCRIPTION, image: imageProp } = Astro.props;
+const imageData = imageProp?.data;
 
-const imagePropSrc = typeof imageProp === "string" ? imageProp : imageProp.src;
+const image = {
+  src: undefined,
+  metadata: undefined,
+  alt: imageProp?.alt,
+} as {
+  src: string | undefined;
+  metadata: ImageMetadata | undefined;
+  alt: string | undefined;
+};
 
-const image = new URL(imagePropSrc, Astro.url).toString();
+switch (typeof imageData) {
+  case "undefined":
+    break;
+  case "string":
+    image.src = imageData;
+    break;
+  default:
+    image.src = new URL(imageData.src).toString();
+    image.metadata = imageData;
+    break;
+}
 ---
 
 <meta charset="utf-8" />
@@ -53,13 +73,27 @@ const image = new URL(imagePropSrc, Astro.url).toString();
   titleDefault={SITE_TITLE}
   titleTemplate={`%s | ${SITE_TITLE}`}
   description={description}
-  openGraph={title
+  openGraph={title && image.src
     ? {
         basic: {
           type: "website",
           title,
           url: Astro.url,
-          image,
+          image: image.src,
+        },
+        optional: {
+          description,
+          locale: "en_US",
+          siteName: SITE_TITLE,
+        },
+        image: {
+          alt: image.alt,
+          url: image.src,
+          height: image.metadata?.height,
+          width: image.metadata?.width,
+          type: image.metadata?.format
+            ? `image/${image.metadata.format}`
+            : undefined,
         },
       }
     : undefined}
@@ -67,6 +101,6 @@ const image = new URL(imagePropSrc, Astro.url).toString();
     card: "summary_large_image",
     title,
     description,
-    image,
+    image: image.src,
   }}
 />

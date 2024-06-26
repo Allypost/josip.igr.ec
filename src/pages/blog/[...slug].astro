@@ -26,6 +26,8 @@ const {
   description,
   heroImage,
   heroImageAlt,
+  socialImage,
+  socialImageAlt,
   pubDate,
   updatedDate,
   draft,
@@ -35,7 +37,10 @@ const {
 <MainLayout
   title={title}
   description={description}
-  image={heroImage}
+  image={{
+    data: socialImage ?? heroImage,
+    alt: socialImageAlt ?? heroImageAlt,
+  }}
   mainClass="max-w-5xl"
 >
   <article>
