@@ -36,10 +36,13 @@ export default {
       },
       colors: {
         base: {
-          fg: "var(--color-base-fg)",
-          bg: "var(--color-base-bg)",
+          fg: "rgb(var(--color-base-fg) / <alpha-value>)",
+          bg: "rgb(var(--color-base-bg) / <alpha-value>)",
         },
-        highlight: "var(--color-highlight)",
+        highlight: "rgb(var(--color-highlight) / <alpha-value>)",
+        code: {
+          bg: "rgb(var(--color-code-bg) / <alpha-value>)",
+        },
       },
     },
     fontFamily: {

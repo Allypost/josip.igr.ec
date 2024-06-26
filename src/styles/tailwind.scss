@@ -44,17 +44,17 @@
 }
 
 @mixin incl-light {
-  --color-base-fg: theme(colors.stone.900);
-  --color-base-bg: theme(colors.stone.200);
-  --color-highlight: #6920a5;
-  --color-code-bg: theme(colors.neutral.100);
+  --color-base-fg: 28 25 23;
+  --color-base-bg: 231 229 228;
+  --color-highlight: 105 32 165;
+  --color-code-bg: 245 245 245;
 }
 
 @mixin incl-dark {
-  --color-base-fg: theme(colors.stone.200);
-  --color-base-bg: theme(colors.stone.900);
-  --color-highlight: #c58bff;
-  --color-code-bg: theme(colors.neutral.800);
+  --color-base-fg: 231 229 228;
+  --color-base-bg: 28 25 23;
+  --color-highlight: 197 139 255;
+  --color-code-bg: 38 38 38;
 }
 
 :root {

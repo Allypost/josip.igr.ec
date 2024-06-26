@@ -107,11 +107,11 @@ const {
     }
 
     .code-container {
-      @apply flex flex-col rounded-md border border-[--color-code-bg] p-0.5;
-      box-shadow: 0 0 4px var(--color-code-bg);
+      @apply flex flex-col rounded-md border border-code-bg p-0.5;
+      box-shadow: 0 0 4px rgb(var(--color-code-bg));
 
       .code-title {
-        @apply m-0 mr-auto rounded-t border-t-2 border-highlight bg-[--color-code-bg] px-3 py-2 font-bold;
+        @apply m-0 mr-auto rounded-t border-t-2 border-highlight bg-code-bg px-3 py-2 font-bold;
       }
 
       .code-title + pre {
@@ -120,7 +120,7 @@ const {
 
       pre.code-contents,
       pre.code-contents span {
-        @apply !bg-[--color-code-bg] dark:!text-[--dark-color] dark:![font-style:--dark-font-style,inherit] dark:![font-weight:--dark-font-weight,inherit] dark:![text-decoration:--dark-text-decoration,inherit];
+        @apply !bg-code-bg dark:!text-[--dark-color] dark:![font-style:--dark-font-style,inherit] dark:![font-weight:--dark-font-weight,inherit] dark:![text-decoration:--dark-text-decoration,inherit];
       }
     }
 
