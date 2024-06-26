@@ -1,0 +1,9 @@
+.astro
+.wrangler
+.vscode
+.github
+dist
+node_modules
+.env
+.env.example
+README.md
