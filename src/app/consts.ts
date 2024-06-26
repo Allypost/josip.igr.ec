@@ -2,7 +2,7 @@ const trimUrl = (url: string) => url.trim().replaceAll(/\/*$/g, "");
 
 export const FALSY_ENV_STRINGS = ["false", "f", "no", "n", "0", ""] as const;
 
-export const SITE_TITLE = "Josip's site";
+export const SITE_TITLE = "josip.igr.ec";
 
 export const SITE_DESCRIPTION =
   "Full-stack engineer who enjoys learning and understanding new technologies.";
