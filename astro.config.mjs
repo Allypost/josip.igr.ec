@@ -15,6 +15,7 @@ import remarkCodeTitles from "remark-flexible-code-titles";
 import remarkToc from "remark-toc";
 
 import rehypeImagesInFigures from "./plugins/rehype/images-in-figures";
+import rehypeRemoteLinksGetTarget from "./plugins/rehype/remote-links-get-target";
 import { remarkReadingTime } from "./plugins/remark/remark-reading-time";
 
 // https://astro.build/config
@@ -76,6 +77,7 @@ export default defineConfig({
     rehypePlugins: [
       rehypeAccessibleEmojis,
       rehypeImagesInFigures,
+      rehypeRemoteLinksGetTarget,
       rehypeRemoveComments,
       rehypeSlug,
       [
