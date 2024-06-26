@@ -42,6 +42,17 @@ const {
     alt: socialImageAlt ?? heroImageAlt,
   }}
   mainClass="max-w-5xl"
+  seo={{
+    openGraph: {
+      article: {
+        publishedTime: pubDate.toISOString(),
+        modifiedTime: updatedDate?.toISOString(),
+      },
+      image: {
+        alt: heroImageAlt ?? socialImageAlt,
+      },
+    },
+  }}
 >
   <article>
     <div

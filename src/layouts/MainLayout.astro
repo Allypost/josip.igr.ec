@@ -1,8 +1,12 @@
 ---
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import "~/styles/tailwind.scss";
 
 import { cn } from "~/app/css";
-import BaseHead, { type ImageProp } from "~components/BaseHead.astro";
+import BaseHead, {
+  type ImageProp,
+  type SeoProps,
+} from "~components/BaseHead.astro";
 import Footer from "~components/Footer.astro";
 import Header from "~components/Header.astro";
 
@@ -11,22 +15,17 @@ type Props = {
   description?: string;
   image?: ImageProp;
   mainClass?: string;
+  seo?: SeoProps;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const { title, description, image, mainClass } = Astro.props;
+const { title, description, image, mainClass, seo } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en" transition:animate="none">
   <head>
-    {
-      (
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        <BaseHead title={title} description={description} image={image} />
-      )
-    }</head
-  >
+    <BaseHead title={title} description={description} image={image} seo={seo} />
+  </head>
   <body class="flex min-h-screen flex-col bg-base-bg bg-cover text-base-fg">
     <Header />
     <main class={cn("mx-auto w-full max-w-3xl flex-1 p-4", mainClass ?? "")}>
