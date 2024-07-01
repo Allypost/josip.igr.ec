@@ -1,4 +1,5 @@
 import type { CollectionEntry } from "astro:content";
+// @ts-expect-error: dumb stuff
 import React from "react";
 
 const linearGradient = (
