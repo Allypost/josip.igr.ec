@@ -12,7 +12,6 @@ import rehypeRemoveComments from "rehype-remove-comments";
 import rehypeRewrite from "rehype-rewrite";
 import rehypeSlug from "rehype-slug";
 import remarkCodeTitles from "remark-flexible-code-titles";
-import remarkToc from "remark-toc";
 
 import rehypeImagesInFigures from "./plugins/rehype/images-in-figures";
 import rehypeRemoteLinksGetTarget from "./plugins/rehype/remote-links-get-target";
@@ -72,7 +71,6 @@ export default defineConfig({
           tokenForSpaceInTitle: "¤",
         },
       ],
-      remarkToc,
     ],
     rehypePlugins: [
       rehypeAccessibleEmojis,
