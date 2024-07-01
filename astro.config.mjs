@@ -120,4 +120,9 @@ export default defineConfig({
     inlineStylesheets: "always",
     assets: "_static",
   },
+  vite: {
+    optimizeDeps: {
+      exclude: ["@resvg/resvg-js"],
+    },
+  },
 });
