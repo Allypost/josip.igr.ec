@@ -74,6 +74,7 @@ export const links = {
     href: "https://mastodon.social/@allypost",
     text: "Mastodon",
     icon: "simple-icons:mastodon",
+    handle: "@Allypost@mastodon.social",
   },
   twitter: {
     href: "https://twitter.com/AllyPost",
@@ -90,4 +91,4 @@ export const links = {
     text: "LinkedIn",
     icon: "simple-icons:linkedin",
   },
-};
+} as const;

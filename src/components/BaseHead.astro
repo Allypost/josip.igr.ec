@@ -63,6 +63,9 @@ type SeoPropsStrict = {
     image?: URL | string;
     imageAlt?: string;
   };
+  fediverse?: {
+    creator?: string[];
+  };
   extend?: {
     link?: Partial<Link>[];
     meta?: Partial<Meta>[];
@@ -147,6 +150,9 @@ const seoData = merge(
       description,
       image: image.src,
     },
+    fediverse: {
+      creator: [links.mastodon.handle],
+    },
     surpressWarnings: true,
   } as SeoPropsStrict,
   seoProp,
@@ -178,3 +184,8 @@ const seoData = merge(
 <ViewTransitions />
 
 <SEO {...seoData} />
+{
+  seoData.fediverse?.creator?.map((handle) => (
+    <meta name="fediverse:creator" content={handle} />
+  ))
+}
