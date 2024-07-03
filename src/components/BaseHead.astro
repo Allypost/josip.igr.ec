@@ -5,7 +5,7 @@ import { ViewTransitions } from "astro:transitions";
 import { SEO, type Link, type Meta, type TwitterCardType } from "astro-seo";
 import merge from "lodash/fp/merge";
 
-import { SITE_DESCRIPTION, SITE_TITLE } from "~/app/consts";
+import { links, SITE_DESCRIPTION, SITE_TITLE } from "~/app/consts";
 import { remoteCdnUrl } from "~/app/helpers";
 
 type SeoPropsStrict = {
@@ -161,6 +161,7 @@ const seoData = merge(
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 <link rel="manifest" href="/site.webmanifest" />
+<link rel="me" href={links.mastodon.href} />
 <link
   rel="alternate"
   type="application/rss+xml"
