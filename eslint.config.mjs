@@ -15,7 +15,6 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
-  ...astroPlugin.configs.recommended,
   {
     languageOptions: {
       parserOptions: {
@@ -24,8 +23,9 @@ export default tseslint.config(
       },
     },
   },
+  ...astroPlugin.configs.recommended,
   {
-    files: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
+    files: ["./src/**/*.{html,js,mjs,cjs,jsx,md,mdx,svelte,ts,tsx,vue}"],
     plugins: {
       prettier: prettierPlugin,
       "simple-import-sort": simpleImportSort,
@@ -61,6 +61,7 @@ export default tseslint.config(
           argsIgnorePattern: "^_",
           varsIgnorePattern: "^_",
           caughtErrors: "none",
+          reportUsedIgnorePattern: true,
         },
       ],
       "@stylistic/ts/member-delimiter-style": ["error"],
@@ -126,6 +127,12 @@ export default tseslint.config(
       "import/first": "error",
       "import/newline-after-import": "error",
       "import/no-duplicates": "error",
+    },
+  },
+  {
+    files: ["*.astro"],
+    rules: {
+      "@typescript-eslint/await-thenable": "off",
     },
   },
 );
