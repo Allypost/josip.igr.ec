@@ -1,0 +1,24 @@
+---
+import type { Heading } from "~plugins/remark/remark-toc";
+
+type Props = {
+  heading: Heading;
+};
+
+const { heading } = Astro.props;
+---
+
+<li>
+  <a href={heading.href}>
+    {heading.text}
+  </a>
+  {
+    heading.subheadings.length > 0 && (
+      <ul>
+        {heading.subheadings.map((subheading) => (
+          <Astro.self heading={subheading} />
+        ))}
+      </ul>
+    )
+  }
+</li>

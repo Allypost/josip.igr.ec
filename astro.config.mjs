@@ -16,6 +16,7 @@ import remarkCodeTitles from "remark-flexible-code-titles";
 import rehypeImagesInFigures from "./plugins/rehype/images-in-figures";
 import rehypeRemoteLinksGetTarget from "./plugins/rehype/remote-links-get-target";
 import { remarkReadingTime } from "./plugins/remark/remark-reading-time";
+import { remarkAddToc } from "./plugins/remark/remark-toc";
 
 // https://astro.build/config
 export default defineConfig({
@@ -71,6 +72,7 @@ export default defineConfig({
           tokenForSpaceInTitle: "¤",
         },
       ],
+      remarkAddToc,
     ],
     rehypePlugins: [
       rehypeAccessibleEmojis,
@@ -90,6 +92,7 @@ export default defineConfig({
           /**
            * @type {import("rehype-rewrite").RehypeRewriteOptions["rewrite"]}
            */
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           rewrite: (node, _index, _parent) => {
             if (node.type === "element") {
               const style = node.properties.style;

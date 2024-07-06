@@ -5,7 +5,9 @@ import { cn } from "~/app/css";
 import { getVisibleBlogPosts } from "~/app/helpers";
 import AppPicture from "~components/AppPicture.astro";
 import FormattedDate from "~components/FormattedDate.astro";
+import TOC from "~components/TOC.astro";
 import MainLayout from "~layouts/MainLayout.astro";
+import type { Heading } from "~plugins/remark/remark-toc";
 
 export async function getStaticPaths() {
   return (await getVisibleBlogPosts()).map((post) => ({
@@ -19,7 +21,7 @@ export async function getStaticPaths() {
 export type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
-const { Content, remarkPluginFrontmatter, headings } = await post.render();
+const { Content, remarkPluginFrontmatter } = await post.render();
 
 const generatedSocialImage = new URL(`/blog/${post.slug}.png`, Astro.url);
 
@@ -103,22 +105,20 @@ const {
       }
     </div>
 
-    <div class="flex flex-col gap-4 rounded-md bg-base-fg/10 p-4">
+    <div
+      class="table-of-contents flex flex-col gap-2 rounded-md bg-base-fg/10 p-4"
+    >
       <h2 class="no-prefix text-2xl font-bold">Content</h2>
       <input
         type="checkbox"
         id="__expand-blog-content-section"
         class="hidden"
+        aria-hidden="true"
       />
-      <ul class="ml-4 max-h-16 list-inside list-disc overflow-clip">
-        {
-          headings.map((heading) => (
-            <li>
-              <a href={`#${heading.slug}`}>{heading.text}</a>
-            </li>
-          ))
-        }
-      </ul>
+      <TOC
+        class="text-md max-h-20 overflow-hidden"
+        headings={remarkPluginFrontmatter.generatedHeadings as Heading[]}
+      />
       <label
         class="mx-auto cursor-pointer after:content-['more']"
         for="__expand-blog-content-section">Show&nbsp;</label
