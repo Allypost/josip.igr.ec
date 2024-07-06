@@ -112,7 +112,16 @@ switch (typeof imageData) {
     image.src = imageData;
     break;
   default:
-    image.src = new URL(imageData.src).toString();
+    try {
+      image.src = new URL(imageData.src).toString();
+    } catch {
+      // ignore errors
+    }
+    try {
+      image.src = new URL(imageData.src, import.meta.env.SITE).toString();
+    } catch {
+      // ignore errors
+    }
     image.metadata = imageData;
     break;
 }
