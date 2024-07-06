@@ -15,7 +15,7 @@
   }
 
   a {
-    @apply rounded-sm underline transition-colors duration-300 hover:no-underline;
+    @apply rounded-sm underline transition-[background-color] duration-300 hover:no-underline;
 
     &:not(.link-no-invert) {
       @apply hover:bg-highlight hover:text-base-bg hover:transition-none;
@@ -34,6 +34,21 @@
 
   html {
     @apply scroll-smooth;
+
+    body {
+      @apply transition-none;
+    }
+
+    &:not([data-astro-transition]) {
+      &.light,
+      &.dark {
+        body {
+          transition-duration: 200ms;
+          transition-property: background-color, color;
+          transition-timing-function: ease;
+        }
+      }
+    }
   }
 
   html body {

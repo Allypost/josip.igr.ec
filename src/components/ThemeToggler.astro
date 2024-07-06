@@ -44,10 +44,9 @@ type Props = HTMLAttributes<"button">;
 
         const mt = mediaTheme();
 
+        cl.remove("light", "dark");
         if (mt !== rt || !cl.contains(rt)) {
-          cl.value = rt ?? "";
-        } else {
-          cl.value = "";
+          cl.add(rt);
         }
       };
 
