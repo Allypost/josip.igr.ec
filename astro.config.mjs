@@ -17,6 +17,8 @@ import remarkCodeTitles from "remark-flexible-code-titles";
 import rehypeImagesInFigures from "./plugins/rehype/images-in-figures";
 import rehypeRemoteLinksGetTarget from "./plugins/rehype/remote-links-get-target";
 import { remarkReadingTime } from "./plugins/remark/remark-reading-time";
+import { rehypeWrapRootElementsInContainers } from "./plugins/rehype/wrap-root-elements-in-containers";
+import { rehypeDeleteEmptyElements } from "./plugins/rehype/delete-empty-elements";
 import { remarkAddToc } from "./plugins/remark/remark-toc";
 
 // https://astro.build/config
@@ -86,6 +88,10 @@ export default defineConfig({
         rehypeAutolinkHeadings,
         {
           behavior: "append",
+          content: {
+            type: "text",
+            value: "#",
+          },
         },
       ],
       [
@@ -117,6 +123,8 @@ export default defineConfig({
           },
         },
       ],
+      rehypeWrapRootElementsInContainers,
+      rehypeDeleteEmptyElements,
     ],
   },
   build: {

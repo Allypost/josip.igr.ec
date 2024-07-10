@@ -23,17 +23,18 @@ export function h(
   return hRaw(selector, properties, ...args);
 }
 
-export const visitElements = async <N extends UNode>(
+type MaybePromise<T> = T | Promise<T>;
+
+export const visitNodes = async <N extends UNode>(
   node: N,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-redundant-type-constituents
-  cb: (el: Element, elIndex?: number, parent?: UParent) => Promise<any> | any,
+  cb: (
+    node: UNode,
+    nodeIndex?: number,
+    parent?: UParent,
+  ) => MaybePromise<unknown>,
 ) => {
   const visit = async (node: UNode, nodeIndex?: number, parent?: UParent) => {
-    if (node.type === "element") {
-      const n = node as unknown as Element;
-
-      await cb(n, nodeIndex, parent);
-    }
+    await cb(node, nodeIndex, parent);
 
     if (!("children" in node)) {
       return;
@@ -45,4 +46,22 @@ export const visitElements = async <N extends UNode>(
   };
 
   await visit(node);
+};
+
+export const visitElements = async <N extends UNode>(
+  node: N,
+  cb: (
+    el: Element,
+    elIndex?: number,
+    parent?: UParent,
+  ) => MaybePromise<unknown>,
+) => {
+  await visitNodes(node, async (n, idx, p) => {
+    if (n.type !== "element") {
+      return;
+    }
+
+    const el = n as Element;
+    await cb(el, idx, p);
+  });
 };
