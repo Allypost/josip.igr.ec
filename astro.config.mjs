@@ -1,6 +1,7 @@
 import "dotenv/config";
 
 import mdx from "@astrojs/mdx";
+import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import playformCompress from "@playform/compress";
@@ -42,6 +43,7 @@ export default defineConfig({
       },
       Image: false,
     }),
+    react(),
   ],
   markdown: {
     syntaxHighlight: "shiki",
