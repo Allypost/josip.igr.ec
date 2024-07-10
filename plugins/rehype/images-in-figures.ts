@@ -22,7 +22,7 @@ export const rehypeImagesInFigures: Plugin<[], Root> = () => {
         return;
       }
 
-      const figId = `_fig-${Math.random().toString(36).slice(2)}${GLOBAL_COUNT++}`;
+      const figId = `_fig-${Math.random().toString(36).slice(2)}${String(GLOBAL_COUNT++)}`;
       const shouldRenderFigCaption = typeof alt === "string";
 
       const figureChildren = [
@@ -52,6 +52,13 @@ export const rehypeImagesInFigures: Plugin<[], Root> = () => {
 
       // Replace the image node with the figure
       parent.children.splice(elIndexInParent, 1, figure);
+
+      // If the figure is a child of a paragraph, convert it to a div.
+      // Otherwise, the figure will be promoted to top level and surrounded
+      // by two paragraph elements. eg. <p></p><figure>...</figure><p></p>
+      if ("tagName" in parent && parent.tagName === "p") {
+        parent.tagName = "div";
+      }
     });
   };
 };
