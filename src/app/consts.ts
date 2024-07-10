@@ -7,6 +7,11 @@ export const SITE_TITLE = "josip.igr.ec";
 export const SITE_DESCRIPTION =
   "Full-stack engineer who enjoys learning and understanding new technologies.";
 
+export const BLOG_TITLE = "Josip's Blog";
+
+export const BLOG_DESCRIPTION =
+  "Opinions about mostly software and technology. Sanity may vary.";
+
 export const REMOTE_CDN_URL = trimUrl(
   import.meta.env.PUBLIC_REMOTE_CDN_URL ?? "https://cdn.allypost.net",
 );

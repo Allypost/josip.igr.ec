@@ -24,6 +24,11 @@ const socials = [
     href: links.linkedin.href,
     icon: links.linkedin.icon,
   },
+  {
+    text: "RSS Feed",
+    href: new URL("/blog.xml", Astro.site),
+    icon: "simple-icons:rss",
+  },
 ];
 ---
 
@@ -41,6 +46,7 @@ const socials = [
             target="_blank"
             rel="noopener noreferrer"
             class="link-no-invert link-no-external opacity-50 transition-opacity duration-300 hover:opacity-100 hover:transition-none"
+            title={social.text}
           >
             <span class="sr-only">{social.text}</span>
             <Icon name={social.icon} />

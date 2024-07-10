@@ -181,7 +181,7 @@ const seoData = merge(
   rel="alternate"
   type="application/rss+xml"
   title={SITE_TITLE}
-  href="/rss.xml"
+  href={new URL("blog.xml", Astro.site)}
 />
 
 <link rel="preconnect" href={remoteCdnUrl()} crossorigin />
