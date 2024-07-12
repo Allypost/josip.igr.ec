@@ -3,6 +3,298 @@ import { Icon } from "astro-icon/components";
 
 import { links, technologies } from "~/app/consts";
 import MainLayout from "~layouts/MainLayout.astro";
+
+const projects = [
+  {
+    name: "Job Fair web",
+    description: "A web application for the Job Fair at FER.",
+    body: "",
+    technologies: [
+      {
+        name: "Vue",
+        icon: "simple-icons:vuedotjs",
+      },
+      {
+        name: "Nuxt",
+        icon: "simple-icons:nuxtdotjs",
+      },
+      {
+        name: "Express",
+        icon: "simple-icons:express",
+      },
+      {
+        name: "Prisma",
+        icon: "simple-icons:prisma",
+      },
+      {
+        name: "Postgres",
+        icon: "simple-icons:postgresql",
+      },
+      {
+        name: "GraphQL",
+        icon: "simple-icons:graphql",
+      },
+      {
+        name: "Docker",
+        icon: "simple-icons:docker",
+      },
+    ],
+    links: [
+      {
+        name: "GitHub",
+        href: "https://github.com/KSET/jobfair-2022",
+        icon: "simple-icons:github",
+      },
+      {
+        name: "Website",
+        href: "https://jobfair.fer.unizg.hr/",
+        icon: "mdi:web",
+      },
+    ],
+  },
+
+  {
+    name: "Twitter Screenshotter",
+    description:
+      "Application that takes screenshots of tweets (and various other platforms).",
+    technologies: [
+      {
+        name: "Express",
+        icon: "simple-icons:express",
+      },
+      {
+        name: "Playwright",
+        icon: "simple-icons:playwright",
+      },
+      {
+        name: "Docker",
+        icon: "simple-icons:docker",
+      },
+    ],
+    links: [
+      {
+        name: "GitHub",
+        href: "https://github.com/Allypost/twitter-screenshotter",
+        icon: "simple-icons:github",
+      },
+      {
+        name: "Website",
+        href: "https://twitter.igr.ec/",
+        icon: "mdi:web",
+      },
+    ],
+  },
+
+  {
+    name: "ZEZ Web",
+    description: "A web application for the ZEZ project.",
+    technologies: [
+      {
+        name: "React",
+        icon: "simple-icons:react",
+      },
+      {
+        name: "Next",
+        icon: "simple-icons:nextdotjs",
+      },
+      {
+        name: "Tailwind",
+        icon: "simple-icons:tailwindcss",
+      },
+      {
+        name: "Vercel",
+        icon: "simple-icons:vercel",
+      },
+    ],
+    links: [
+      {
+        name: "GitHub",
+        href: "https://github.com/KSET/zez-2023",
+        icon: "simple-icons:github",
+      },
+      {
+        name: "Website",
+        href: "https://zez.josip.igr.ec/",
+        icon: "mdi:web",
+      },
+    ],
+  },
+
+  {
+    name: "Karaokify bot",
+    description:
+      "A Telegram bot that takes a link to a song and removes the vocals.",
+    technologies: [
+      {
+        name: "Rust",
+        icon: "simple-icons:rust",
+      },
+      {
+        name: "Telegram",
+        icon: "simple-icons:telegram",
+      },
+      {
+        name: "Docker",
+        icon: "simple-icons:docker",
+      },
+    ],
+    links: [
+      {
+        name: "GitHub",
+        href: "https://github.com/Allypost/karaokify-rs",
+        icon: "simple-icons:github",
+      },
+    ],
+  },
+
+  {
+    name: "Media Downloader bot",
+    description:
+      "A Telegram bot that downloads media and does various transformations.",
+    technologies: [
+      {
+        name: "Rust",
+        icon: "simple-icons:rust",
+      },
+      {
+        name: "Telegram",
+        icon: "simple-icons:telegram",
+      },
+      {
+        name: "Docker",
+        icon: "simple-icons:docker",
+      },
+    ],
+    links: [
+      {
+        name: "GitHub",
+        href: "https://github.com/Allypost/meme-downloader-rs",
+        icon: "simple-icons:github",
+      },
+    ],
+  },
+
+  {
+    name: "Downloader Hub",
+    description:
+      "An API that does what the bot does for now, but more streamlined and with a REST API.",
+    technologies: [
+      {
+        name: "Rust",
+        icon: "simple-icons:rust",
+      },
+      {
+        name: "Axum",
+      },
+      {
+        name: "Postgres",
+        icon: "simple-icons:postgresql",
+      },
+      {
+        name: "Docker",
+        icon: "simple-icons:docker",
+      },
+    ],
+    links: [
+      {
+        name: "GitHub",
+        href: "https://github.com/Allypost/downloader-hub",
+        icon: "simple-icons:github",
+      },
+    ],
+  },
+
+  {
+    name: "Member Verification Bot",
+    description:
+      "A Discord bot that verifies members based on membership data.",
+    technologies: [
+      {
+        name: "Node.js",
+        icon: "simple-icons:nodedotjs",
+      },
+      {
+        name: "Discord",
+        icon: "simple-icons:discord",
+      },
+    ],
+    links: [
+      {
+        name: "GitHub",
+        href: "https://github.com/KSET/discord-verifikator-bot-2024",
+        icon: "simple-icons:github",
+      },
+    ],
+  },
+
+  {
+    name: "KSET Comp CTF",
+    description: "A simple CTF site with a couple challenges.",
+    technologies: [
+      {
+        name: "React",
+        icon: "simple-icons:react",
+      },
+      {
+        name: "Next",
+        icon: "simple-icons:nextdotjs",
+      },
+      {
+        name: "Tailwind",
+        icon: "simple-icons:tailwindcss",
+      },
+      {
+        name: "Docker",
+        icon: "simple-icons:docker",
+      },
+    ],
+    links: [
+      {
+        name: "GitHub",
+        href: "https://github.com/KSET/comp-ctf-2023",
+        icon: "simple-icons:github",
+      },
+      {
+        name: "Website",
+        href: "https://ctf.comp.kset.org/",
+        icon: "mdi:web",
+      },
+    ],
+  },
+
+  {
+    name: "IosevkAlly",
+    description: "A custom version of Iosevka (that you're currently reading)",
+    technologies: [],
+    links: [
+      {
+        name: "GitHub",
+        href: "https://github.com/Allypost/IosevkAlly",
+        icon: "simple-icons:github",
+      },
+    ],
+  },
+
+  {
+    name: "Dotfiles",
+    description: "My dotfiles to show my l33t h4x0r status",
+    technologies: [
+      {
+        name: "Dotfiles",
+      },
+    ],
+    links: [
+      {
+        name: "GitHub",
+        href: "https://github.com/Allypost/dotfiles",
+        icon: "simple-icons:github",
+      },
+    ],
+  },
+].map((x) => ({
+  ...x,
+  id: `project-${x.name.toLowerCase().replace(/[^\w]/g, "-").replace(/-+/g, "-")}`,
+}));
 ---
 
 <MainLayout title="About me" mainClass="mt-4 flex w-full flex-col gap-8">
@@ -51,6 +343,55 @@ import MainLayout from "~layouts/MainLayout.astro";
           <span class="cursor-default rounded-md bg-base-fg px-2 py-1 font-bold text-base-bg opacity-85 transition-opacity duration-500 hover:opacity-100 hover:transition-none">
             {t}
           </span>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <h3 id="projects" class="text-xl font-bold">My projects</h3>
+    <p>
+      These are some of the projects I made and/or worked on. This won't include
+      work I've done as part of a company, but will include freelance projects.
+    </p>
+    <div class="flex flex-col items-stretch gap-4">
+      {
+        projects.map((x) => (
+          <article class="flex flex-col gap-2 rounded-md border-2 border-highlight/50 p-2 shadow-lg shadow-highlight/10 transition-shadow duration-500 hover:shadow-highlight/30">
+            <h4 class="text-lg font-bold" id={x.id}>
+              {x.name}
+            </h4>
+            <p class="opacity-80">{x.description}</p>
+            <details class="rounded-md border border-base-fg/20 p-2">
+              <summary class="cursor-pointer">More info</summary>
+              <div class="mt-2" />
+              {x.body ? <p>{x.body}</p> : null}
+              <div>
+                <h5 class="flex-1 opacity-80">Technologies:</h5>
+                <div class="mt-1 flex flex-wrap gap-1">
+                  {x.technologies.map((tech) => (
+                    <div class="flex items-center justify-center gap-1 rounded-md border border-base-fg/30 px-1 py-1.5">
+                      {tech.icon ? <Icon name={tech.icon} /> : null}
+                      <span>{tech.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </details>
+            <div class="flex flex-wrap gap-2">
+              {x.links.map((l) => (
+                <a
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="link-no-external link-monochrome flex items-center gap-1 px-1 py-0.5"
+                >
+                  <Icon name={l.icon} />
+                  <span>{l.name}</span>
+                </a>
+              ))}
+            </div>
+          </article>
         ))
       }
     </div>
