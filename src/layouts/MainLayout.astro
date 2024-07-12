@@ -28,7 +28,7 @@ const { title, description, image, mainClass, seo } = Astro.props;
   </head>
   <body class="flex min-h-screen flex-col bg-base-bg bg-cover text-base-fg">
     <Header />
-    <main class={cn("mx-auto w-full max-w-3xl flex-1 p-4", mainClass ?? "")}>
+    <main class={cn("mx-auto w-full max-w-4xl flex-1 p-4", mainClass ?? "")}>
       <slot />
     </main>
     <Footer class="mt-auto" />
