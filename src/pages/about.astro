@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 
-import { links, technologies } from "~/app/consts";
+import { links, technologies, technologyIcons } from "~/app/consts";
 import MainLayout from "~layouts/MainLayout.astro";
 
 const projects = [
@@ -10,34 +10,14 @@ const projects = [
     description: "A web application for the Job Fair at FER.",
     body: "",
     technologies: [
-      {
-        name: "Vue",
-        icon: "simple-icons:vuedotjs",
-      },
-      {
-        name: "Nuxt",
-        icon: "simple-icons:nuxtdotjs",
-      },
-      {
-        name: "Express",
-        icon: "simple-icons:express",
-      },
-      {
-        name: "Prisma",
-        icon: "simple-icons:prisma",
-      },
-      {
-        name: "Postgres",
-        icon: "simple-icons:postgresql",
-      },
-      {
-        name: "GraphQL",
-        icon: "simple-icons:graphql",
-      },
-      {
-        name: "Docker",
-        icon: "simple-icons:docker",
-      },
+      technologyIcons.vue,
+      technologyIcons.nuxt,
+      technologyIcons.express,
+      technologyIcons.typescript,
+      technologyIcons.prisma,
+      technologyIcons.postgres,
+      technologyIcons.graphql,
+      technologyIcons.docker,
     ],
     links: [
       {
@@ -58,18 +38,9 @@ const projects = [
     description:
       "Application that takes screenshots of tweets (and various other platforms).",
     technologies: [
-      {
-        name: "Express",
-        icon: "simple-icons:express",
-      },
-      {
-        name: "Playwright",
-        icon: "simple-icons:playwright",
-      },
-      {
-        name: "Docker",
-        icon: "simple-icons:docker",
-      },
+      technologyIcons.express,
+      technologyIcons.playwright,
+      technologyIcons.docker,
     ],
     links: [
       {
@@ -89,22 +60,11 @@ const projects = [
     name: "ZEZ Web",
     description: "A web application for the ZEZ project.",
     technologies: [
-      {
-        name: "React",
-        icon: "simple-icons:react",
-      },
-      {
-        name: "Next",
-        icon: "simple-icons:nextdotjs",
-      },
-      {
-        name: "Tailwind",
-        icon: "simple-icons:tailwindcss",
-      },
-      {
-        name: "Vercel",
-        icon: "simple-icons:vercel",
-      },
+      technologyIcons.react,
+      technologyIcons.typescript,
+      technologyIcons.next,
+      technologyIcons.tailwind,
+      technologyIcons.vercel,
     ],
     links: [
       {
@@ -125,18 +85,9 @@ const projects = [
     description:
       "A Telegram bot that takes a link to a song and removes the vocals.",
     technologies: [
-      {
-        name: "Rust",
-        icon: "simple-icons:rust",
-      },
-      {
-        name: "Telegram",
-        icon: "simple-icons:telegram",
-      },
-      {
-        name: "Docker",
-        icon: "simple-icons:docker",
-      },
+      technologyIcons.rust,
+      technologyIcons.telegram,
+      technologyIcons.docker,
     ],
     links: [
       {
@@ -152,18 +103,9 @@ const projects = [
     description:
       "A Telegram bot that downloads media and does various transformations.",
     technologies: [
-      {
-        name: "Rust",
-        icon: "simple-icons:rust",
-      },
-      {
-        name: "Telegram",
-        icon: "simple-icons:telegram",
-      },
-      {
-        name: "Docker",
-        icon: "simple-icons:docker",
-      },
+      technologyIcons.rust,
+      technologyIcons.telegram,
+      technologyIcons.docker,
     ],
     links: [
       {
@@ -179,21 +121,10 @@ const projects = [
     description:
       "An API that does what the bot does for now, but more streamlined and with a REST API.",
     technologies: [
-      {
-        name: "Rust",
-        icon: "simple-icons:rust",
-      },
-      {
-        name: "Axum",
-      },
-      {
-        name: "Postgres",
-        icon: "simple-icons:postgresql",
-      },
-      {
-        name: "Docker",
-        icon: "simple-icons:docker",
-      },
+      technologyIcons.rust,
+      technologyIcons.axum,
+      technologyIcons.postgres,
+      technologyIcons.docker,
     ],
     links: [
       {
@@ -209,14 +140,9 @@ const projects = [
     description:
       "A Discord bot that verifies members based on membership data.",
     technologies: [
-      {
-        name: "Node.js",
-        icon: "simple-icons:nodedotjs",
-      },
-      {
-        name: "Discord",
-        icon: "simple-icons:discord",
-      },
+      technologyIcons.bun,
+      technologyIcons.typescript,
+      technologyIcons.discord,
     ],
     links: [
       {
@@ -231,22 +157,10 @@ const projects = [
     name: "KSET Comp CTF",
     description: "A simple CTF site with a couple challenges.",
     technologies: [
-      {
-        name: "React",
-        icon: "simple-icons:react",
-      },
-      {
-        name: "Next",
-        icon: "simple-icons:nextdotjs",
-      },
-      {
-        name: "Tailwind",
-        icon: "simple-icons:tailwindcss",
-      },
-      {
-        name: "Docker",
-        icon: "simple-icons:docker",
-      },
+      technologyIcons.react,
+      technologyIcons.next,
+      technologyIcons.tailwind,
+      technologyIcons.docker,
     ],
     links: [
       {
@@ -265,7 +179,7 @@ const projects = [
   {
     name: "IosevkAlly",
     description: "A custom version of Iosevka (that you're currently reading)",
-    technologies: [],
+    technologies: [technologyIcons.python, technologyIcons.pkl],
     links: [
       {
         name: "GitHub",
@@ -278,11 +192,7 @@ const projects = [
   {
     name: "Dotfiles",
     description: "My dotfiles to show my l33t h4x0r status",
-    technologies: [
-      {
-        name: "Dotfiles",
-      },
-    ],
+    technologies: [],
     links: [
       {
         name: "GitHub",
@@ -357,27 +267,29 @@ const projects = [
     <div class="flex flex-col items-stretch gap-4">
       {
         projects.map((x) => (
-          <article class="flex flex-col gap-2 rounded-md border-2 border-highlight/50 p-2 shadow-lg shadow-highlight/10 transition-shadow duration-500 hover:shadow-highlight/30">
+          <article class="flex flex-col gap-2 rounded-md border-2 border-highlight/50 p-2 shadow-lg shadow-highlight/0 transition-shadow duration-500 hover:shadow-highlight/30">
             <h4 class="text-lg font-bold" id={x.id}>
               {x.name}
             </h4>
             <p class="opacity-80">{x.description}</p>
-            <details class="rounded-md border border-base-fg/20 p-2">
-              <summary class="cursor-pointer">More info</summary>
-              <div class="mt-2" />
-              {x.body ? <p>{x.body}</p> : null}
-              <div>
-                <h5 class="flex-1 opacity-80">Technologies:</h5>
-                <div class="mt-1 flex flex-wrap gap-1">
-                  {x.technologies.map((tech) => (
-                    <div class="flex items-center justify-center gap-1 rounded-md border border-base-fg/30 px-1 py-1.5">
-                      {tech.icon ? <Icon name={tech.icon} /> : null}
-                      <span>{tech.name}</span>
-                    </div>
-                  ))}
+            {x.body || x.technologies.length > 0 ? (
+              <details class="rounded-md border border-base-fg/20 p-2">
+                <summary class="cursor-pointer">More info</summary>
+                <div class="mt-2" />
+                {x.body ? <p>{x.body}</p> : null}
+                <div>
+                  <h5 class="flex-1 opacity-80">Technologies:</h5>
+                  <div class="mt-1 flex flex-wrap gap-1">
+                    {x.technologies.map((tech) => (
+                      <div class="flex items-center justify-center gap-1 rounded-md border border-base-fg/30 px-1 py-1.5">
+                        {tech.icon ? <Icon name={tech.icon} /> : null}
+                        <span>{tech.name}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </details>
+              </details>
+            ) : null}
             <div class="flex flex-wrap gap-2">
               {x.links.map((l) => (
                 <a

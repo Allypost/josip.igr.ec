@@ -24,6 +24,107 @@ export const SHOW_DRAFTS_IN_PRODUCTION = !FALSY_ENV_STRINGS.includes(
 
 export const SHOW_DRAFTS = !import.meta.env.PROD || SHOW_DRAFTS_IN_PRODUCTION;
 
+const _technologyIcons = <
+  const T extends {
+    [key: string]: {
+      name: string;
+      icon?: string;
+    };
+  },
+>(
+  x: T,
+) =>
+  x as {
+    [K in keyof T]: {
+      name: string;
+      icon: string | undefined;
+    };
+  };
+export const technologyIcons = _technologyIcons({
+  vue: {
+    name: "Vue",
+    icon: "simple-icons:vuedotjs",
+  },
+  typescript: {
+    name: "TypeScript",
+    icon: "simple-icons:typescript",
+  },
+  nuxt: {
+    name: "Nuxt",
+    icon: "simple-icons:nuxtdotjs",
+  },
+  nodejs: {
+    name: "NodeJS",
+    icon: "simple-icons:nodedotjs",
+  },
+  express: {
+    name: "Express",
+    icon: "simple-icons:express",
+  },
+  prisma: {
+    name: "Prisma",
+    icon: "simple-icons:prisma",
+  },
+  postgres: {
+    name: "Postgres",
+    icon: "simple-icons:postgresql",
+  },
+  graphql: {
+    name: "GraphQL",
+    icon: "simple-icons:graphql",
+  },
+  docker: {
+    name: "Docker",
+    icon: "simple-icons:docker",
+  },
+  playwright: {
+    name: "Playwright",
+    icon: "simple-icons:playwright",
+  },
+  react: {
+    name: "React",
+    icon: "simple-icons:react",
+  },
+  next: {
+    name: "Next",
+    icon: "simple-icons:nextdotjs",
+  },
+  tailwind: {
+    name: "Tailwind",
+    icon: "simple-icons:tailwindcss",
+  },
+  vercel: {
+    name: "Vercel",
+    icon: "simple-icons:vercel",
+  },
+  rust: {
+    name: "Rust",
+    icon: "simple-icons:rust",
+  },
+  telegram: {
+    name: "Telegram",
+    icon: "simple-icons:telegram",
+  },
+  axum: {
+    name: "Axum",
+  },
+  discord: {
+    name: "Discord",
+    icon: "simple-icons:discord",
+  },
+  python: {
+    name: "Python",
+    icon: "simple-icons:python",
+  },
+  pkl: {
+    name: "Pkl",
+  },
+  bun: {
+    name: "Bun",
+    icon: "simple-icons:bun",
+  },
+} as const);
+
 export const technologies = [
   "TypeScript",
   "Rust",
