@@ -123,6 +123,14 @@ export const technologyIcons = _technologyIcons({
     name: "Bun",
     icon: "simple-icons:bun",
   },
+  elixir: {
+    name: "Elixir",
+    icon: "simple-icons:elixir",
+  },
+  phoenix: {
+    name: "Phoenix",
+    icon: "simple-icons:phoenixframework",
+  },
 } as const);
 
 export const technologies = [
