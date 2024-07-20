@@ -66,7 +66,7 @@ export const technologyIcons = _technologyIcons({
     icon: "simple-icons:prisma",
   },
   postgres: {
-    name: "Postgres",
+    name: "PostgreSQL",
     icon: "simple-icons:postgresql",
   },
   graphql: {
@@ -148,7 +148,9 @@ export const technologies = [
   "Linux",
   "Elixir",
   "NodeJS",
+  "GraphQL",
   "JavaScript",
+  "Playwright",
   "Express",
   "Fastify",
   "Angular",
