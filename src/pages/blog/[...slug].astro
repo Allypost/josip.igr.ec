@@ -133,7 +133,12 @@ const {
       tags ? (
         <div class="mt-12 flex flex-wrap gap-2">
           {tags.map((tag) => (
-            <div class="border-b-2 border-highlight/50">#{tag}</div>
+            <a
+              href={`/blog/tags/${encodeURIComponent(tag)}`}
+              class="link-monochrome"
+            >
+              #{tag}
+            </a>
           ))}
         </div>
       ) : null

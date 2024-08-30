@@ -1,0 +1,76 @@
+---
+import { type CollectionEntry } from "astro:content";
+import { cn } from "~/app/css";
+
+import { getVisibleBlogPosts } from "~/app/helpers";
+import FormattedDate from "~components/FormattedDate.astro";
+import MainLayout from "~layouts/MainLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getVisibleBlogPosts();
+  const postsByTag = new Map<string, (typeof posts)[number][]>();
+
+  for (const post of posts) {
+    const tags = post.data.tags ?? [];
+
+    for (const tag of tags) {
+      if (!postsByTag.has(tag)) {
+        postsByTag.set(tag, []);
+      }
+
+      postsByTag.get(tag)?.push(post);
+    }
+  }
+
+  return Array.from(postsByTag.keys()).map((tag) => ({
+    params: {
+      tag,
+    },
+    props: {
+      tag,
+      posts: postsByTag.get(tag) ?? [],
+    },
+  }));
+}
+
+export type Props = {
+  tag: string;
+  posts: CollectionEntry<"blog">[];
+};
+
+const { tag, posts } = Astro.props;
+---
+
+<MainLayout
+  title={`#${tag} | Blog`}
+  description={`All blog posts tagged with #${tag}`}
+>
+  <h1 class="mb-4 text-center text-3xl font-bold">
+    Blog posts tagged <span class="italic underline">#{tag}</span>
+  </h1>
+
+  <ul>
+    {
+      posts.map((post) => (
+        <li class="mt-2">
+          <article
+            class={cn("flex items-center gap-2 rounded", {
+              "bg-red-500/40": post.data.draft,
+            })}
+            data-tags={post.data.tags?.join(", ")}
+          >
+            {post.data.draft ? <span>❗DRAFT❗</span> : null}
+            <FormattedDate class="opacity-50" date={post.data.pubDate} />
+            <a class="link-monochrome px-1" href={`/blog/${post.slug}/`}>
+              <h2 class="line-clamp-1 text-xl">{post.data.title}</h2>
+            </a>
+          </article>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="mt-8">
+    <a href="/blog/tags/">&larr; See all tags</a>
+  </div>
+</MainLayout>

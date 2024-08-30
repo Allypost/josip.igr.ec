@@ -1,0 +1,32 @@
+---
+import { getVisibleBlogPosts } from "~/app/helpers";
+import MainLayout from "~layouts/MainLayout.astro";
+
+const posts = await getVisibleBlogPosts();
+const tags = new Map<string, number>();
+
+for (const post of posts) {
+  const postTags = post.data.tags ?? [];
+
+  for (const tag of postTags) {
+    tags.set(tag, (tags.get(tag) ?? 0) + 1);
+  }
+}
+---
+
+<MainLayout
+  title={`All tags | Blog`}
+  description={`List of all blog post tags`}
+>
+  <h1 class="mb-4 text-center text-3xl font-bold">All blog post tags</h1>
+  <ul class="mx-auto max-w-prose">
+    {
+      Array.from(tags.entries()).map(([tag, numPosts]) => (
+        <li class="mt-1 list-inside list-disc">
+          <a href={`/blog/tags/${encodeURIComponent(tag)}`}>#{tag}</a>
+          {`(${numPosts.toString()})`}
+        </li>
+      ))
+    }
+  </ul>
+</MainLayout>
