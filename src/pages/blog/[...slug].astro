@@ -23,7 +23,8 @@ export type Props = CollectionEntry<"blog">;
 const post = Astro.props;
 const { Content, remarkPluginFrontmatter } = await post.render();
 
-const generatedSocialImage = new URL(`/blog/${post.slug}.png`, Astro.url);
+const generatedSocialImage = new URL(`/blog/${post.slug}.og.png`, Astro.url);
+const generatedHeroImage = new URL(`/blog/${post.slug}.hero.png`, Astro.url);
 
 const {
   title,
@@ -96,16 +97,12 @@ const {
     </div>
 
     <div class="mb-4">
-      {
-        heroImage && (
-          <AppPicture
-            src={heroImage}
-            alt={heroImageAlt}
-            loading="eager"
-            class="mx-auto block aspect-video w-full rounded-md object-cover shadow"
-          />
-        )
-      }
+      <AppPicture
+        src={heroImage ?? (generatedHeroImage.toString() as never)}
+        alt={heroImageAlt ?? title}
+        loading="eager"
+        class="mx-auto block aspect-video w-full rounded-md object-cover shadow"
+      />
     </div>
 
     <div
