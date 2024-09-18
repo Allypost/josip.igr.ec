@@ -80,10 +80,15 @@ export const SocialTemplate = (
         <div
           style={{
             width: "30%",
+            display: "flex",
+            flexDirection: "column",
             opacity: 0.6,
+            fontSize: "0.75em",
+            marginBottom: "0.5em",
           }}
         >
-          {props.rendered.remarkPluginFrontmatter.minutesRead}
+          <span>{`${String(props.rendered.remarkPluginFrontmatter.wordsOnPage)} words`}</span>
+          <span>{props.rendered.remarkPluginFrontmatter.minutesRead}</span>
         </div>
         <div
           style={{
