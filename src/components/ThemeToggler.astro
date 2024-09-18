@@ -11,8 +11,9 @@ type Props = HTMLAttributes<"button">;
   title="Toggle theme"
   {...Astro.props}
   class={cn("cursor-pointer", Astro.props.class)}
+  onclick="handleClickToggleTheme()"
 >
-  <Icon name="mdi:lightbulb" onclick="handleClickToggleTheme()" />
+  <Icon name="mdi:lightbulb" />
   <script is:inline data-astro-rerun>
     (() => {
       /**
