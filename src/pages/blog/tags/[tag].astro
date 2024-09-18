@@ -46,7 +46,10 @@ const { tag, posts } = Astro.props;
   description={`All blog posts tagged with #${tag}`}
 >
   <h1 class="mb-4 text-center text-3xl font-bold">
-    Blog posts tagged <span class="italic underline">#{tag}</span>
+    Blog posts tagged <span
+      transition:name={`blog__tag__${tag}`}
+      class="italic underline">#{tag}</span
+    >
   </h1>
 
   <ul>

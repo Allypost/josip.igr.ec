@@ -71,7 +71,10 @@ const {
         "before:content-['❗TEST❗']": test,
       })}
     >
-      <h1 class="mb-2 py-4 text-center text-3xl font-bold tracking-wider">
+      <h1
+        transition:name={`blog__title__${post.slug}`}
+        class="mb-2 py-4 text-center text-3xl font-bold tracking-wider"
+      >
         {title}
       </h1>
 
@@ -134,6 +137,7 @@ const {
         <div class="mt-12 flex flex-wrap gap-2">
           {tags.map((tag) => (
             <a
+              transition:name={`blog__tag__${tag}`}
               href={`/blog/tags/${encodeURIComponent(tag)}`}
               class="link-monochrome"
             >

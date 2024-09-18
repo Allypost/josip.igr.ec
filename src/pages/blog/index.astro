@@ -29,7 +29,12 @@ const posts = await getVisibleBlogPosts();
                 {post.data.test ? <span>❗TEST❗</span> : null}
                 <FormattedDate class="opacity-50" date={post.data.pubDate} />
                 <a class="link-monochrome px-1" href={`/blog/${post.slug}/`}>
-                  <h2 class="line-clamp-1 text-xl">{post.data.title}</h2>
+                  <h2
+                    class="line-clamp-1 text-xl"
+                    transition:name={`blog__title__${post.slug}`}
+                  >
+                    {post.data.title}
+                  </h2>
                 </a>
               </article>
             </li>
