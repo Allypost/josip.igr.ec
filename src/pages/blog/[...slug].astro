@@ -48,7 +48,6 @@ const {
     data: socialImage ?? generatedSocialImage.toString(),
     alt: socialImageAlt ?? `${title}\n\n${description}`,
   }}
-  mainClass="max-w-5xl"
   seo={{
     openGraph: {
       article: {
@@ -63,7 +62,7 @@ const {
   }}
 >
   <article>
-    <div
+    <header
       class={cn({
         "rounded-md bg-red-500/40 p-2 before:block before:text-center before:text-3xl":
           draft || test,
@@ -97,7 +96,7 @@ const {
       </div>
 
       <p class="mb-4">{description}</p>
-    </div>
+    </header>
 
     <div class="mb-4">
       <AppPicture
@@ -170,23 +169,40 @@ const {
     }
   }
 
+  .table-of-contents {
+    ul {
+      @apply ml-4 list-inside list-disc;
+    }
+  }
+
   .blog-post-content {
-    @apply leading-relaxed tracking-normal;
+    @apply grid justify-center leading-relaxed;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 70ch) minmax(0, 1fr);
+
+    > * {
+      grid-column: 2;
+      text-wrap: wrap;
+      text-wrap: pretty;
+    }
 
     a[href^="#"] {
       scroll-margin-top: 6rem;
     }
 
     .code-container {
-      @apply flex flex-col rounded-md border border-code-bg p-0.5;
+      @apply col-span-full flex flex-col rounded-md border border-code-bg p-0.5 transition-[width];
       box-shadow: 0 0 4px rgb(var(--color-code-bg));
 
       .code-title {
         @apply m-0 mr-auto rounded-t border-t-2 border-highlight bg-code-bg px-3 py-2 font-bold;
+
+        &:before {
+          display: none;
+        }
       }
 
       .code-title + pre {
-        @apply rounded-t-none border-t-0;
+        @apply rounded-tl-none border-t-0;
       }
 
       pre.code-contents,
@@ -204,7 +220,7 @@ const {
       counter-reset: step;
 
       .line::before {
-        @apply mr-4 inline-block w-4 text-right text-base-fg opacity-40;
+        @apply mr-4 inline-block w-[3ch] text-right text-base-fg opacity-40;
         counter-increment: step;
         content: counter(step);
       }
@@ -214,23 +230,27 @@ const {
       }
     }
 
+    p > code {
+      @apply rounded bg-code-bg px-1 py-px text-highlight-muted;
+    }
+
     kbd {
-      @apply rounded bg-neutral-900 px-1 py-0.5 text-neutral-100 dark:bg-neutral-200 dark:text-neutral-900;
+      @apply rounded bg-neutral-900 px-2 py-1 text-neutral-100 dark:bg-neutral-200 dark:text-neutral-900;
     }
 
-    p {
-      @apply my-4;
-    }
-
-    p + p {
-      @apply mt-0;
+    p + p,
+    div + div,
+    p + div,
+    div + p {
+      @apply mt-6;
     }
 
     blockquote {
-      @apply border-l-4 border-gray-300 pl-4;
+      @apply border-l-4 border-gray-300 py-2 pl-4;
 
-      p {
-        @apply mb-0;
+      p,
+      div {
+        @apply my-0;
       }
     }
 
@@ -264,25 +284,27 @@ const {
     h4,
     h5,
     h6 {
-      @apply mb-2 mt-6 font-bold;
+      @apply mb-4 mt-16 font-bold;
+      scroll-margin-top: 1rem;
+
+      &:not(.no-prefix)::before {
+        @apply text-highlight/70 content-['»_'];
+      }
 
       & + & {
         @apply mt-2;
       }
 
-      & + p {
+      & + p,
+      & + div {
         @apply mt-0;
       }
 
       > a {
         @apply ml-2 hidden items-center justify-center px-1 font-mono no-underline;
-
-        & > .icon-link::after {
-          content: "#";
-        }
       }
 
-      &:hover > a:has(.icon-link) {
+      &:hover > a {
         @apply inline-flex;
       }
     }
@@ -314,7 +336,8 @@ const {
       @apply ml-4 list-inside list-decimal;
     }
 
-    li > p {
+    li > p,
+    li > div {
       @apply my-0 inline-block;
     }
 
@@ -336,6 +359,22 @@ const {
 
     figure:has(figcaption) + figure {
       @apply mt-6;
+    }
+
+    mark {
+      @apply rounded-sm bg-highlight px-1 text-base-bg;
+    }
+
+    .footnotes {
+      @apply mt-4 border-t pt-4;
+
+      ol {
+        @apply m-0;
+
+        p {
+          @apply inline;
+        }
+      }
     }
   }
 </style>

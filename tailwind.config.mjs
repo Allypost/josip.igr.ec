@@ -40,6 +40,7 @@ export default {
           bg: "rgb(var(--color-base-bg) / <alpha-value>)",
         },
         highlight: "rgb(var(--color-highlight) / <alpha-value>)",
+        "highlight-muted": "rgb(var(--color-highlight-muted) / <alpha-value>)",
         code: {
           bg: "rgb(var(--color-code-bg) / <alpha-value>)",
         },
