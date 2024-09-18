@@ -21,11 +21,12 @@ const posts = await getVisibleBlogPosts();
             <li class="mt-2">
               <article
                 class={cn("flex items-center gap-2 rounded", {
-                  "bg-red-500/40": post.data.draft,
+                  "bg-red-500/40": post.data.draft || post.data.test,
                 })}
                 data-tags={post.data.tags?.join(", ")}
               >
                 {post.data.draft ? <span>❗DRAFT❗</span> : null}
+                {post.data.test ? <span>❗TEST❗</span> : null}
                 <FormattedDate class="opacity-50" date={post.data.pubDate} />
                 <a class="link-monochrome px-1" href={`/blog/${post.slug}/`}>
                   <h2 class="line-clamp-1 text-xl">{post.data.title}</h2>

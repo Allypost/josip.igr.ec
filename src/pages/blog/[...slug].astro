@@ -35,6 +35,7 @@ const {
   pubDate,
   updatedDate,
   draft,
+  test,
   tags,
 } = post.data;
 ---
@@ -63,8 +64,10 @@ const {
   <article>
     <div
       class={cn({
-        "rounded-md bg-red-500/40 p-2 before:block before:text-center before:text-3xl before:content-['❗DRAFT❗']":
-          draft,
+        "rounded-md bg-red-500/40 p-2 before:block before:text-center before:text-3xl":
+          draft || test,
+        "before:content-['❗DRAFT❗']": draft,
+        "before:content-['❗TEST❗']": test,
       })}
     >
       <h1 class="mb-2 py-4 text-center text-3xl font-bold tracking-wider">

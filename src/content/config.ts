@@ -26,11 +26,15 @@ const blog = defineCollection({
           d.setUTCHours(12);
           return d;
         }),
-        updatedDate: z.coerce.date().transform((d) => {
-          d.setUTCHours(12);
-          return d;
-        }).optional(),
-        draft: z.boolean().optional(),
+        updatedDate: z.coerce
+          .date()
+          .transform((d) => {
+            d.setUTCHours(12);
+            return d;
+          })
+          .optional(),
+        draft: z.boolean().optional().default(false),
+        test: z.boolean().optional().default(false),
         tags: z.array(z.string()).optional(),
       })
       .and(

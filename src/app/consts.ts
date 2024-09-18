@@ -18,11 +18,23 @@ export const REMOTE_CDN_URL = trimUrl(
 
 export const SITE_URL = trimUrl(import.meta.env.SITE);
 
+export const IS_PRODUCTION = Boolean(import.meta.env.PROD);
+
 export const SHOW_DRAFTS_IN_PRODUCTION = !FALSY_ENV_STRINGS.includes(
-  String(import.meta.env.SHOW_DRAFTS_IN_PRODUCTION ?? "false") as never,
+  String(
+    import.meta.env.SHOW_DRAFTS_IN_PRODUCTION ?? "false",
+  ).toLowerCase() as never,
 );
 
-export const SHOW_DRAFTS = !import.meta.env.PROD || SHOW_DRAFTS_IN_PRODUCTION;
+export const SHOW_DRAFTS = !IS_PRODUCTION || SHOW_DRAFTS_IN_PRODUCTION;
+
+export const SHOW_TESTS_IN_PRODUCTION = !FALSY_ENV_STRINGS.includes(
+  String(
+    import.meta.env.SHOW_TESTS_IN_PRODUCTION ?? "false",
+  ).toLowerCase() as never,
+);
+
+export const SHOW_TESTS = !IS_PRODUCTION || SHOW_TESTS_IN_PRODUCTION;
 
 const _technologyIcons = <
   const T extends {

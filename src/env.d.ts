@@ -3,17 +3,19 @@
 /// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
 
+type FalsyString = "false" | "f" | "no" | "n" | "0";
+
 interface ImportMetaEnv {
   readonly PUBLIC_SITE_URL?: string;
   readonly PUBLIC_REMOTE_CDN_URL?: string;
-  readonly SHOW_DRAFTS_IN_PRODUCTION?: // eslint-disable-next-line @typescript-eslint/ban-types
-  | (string & {})
+  readonly SHOW_DRAFTS_IN_PRODUCTION?:
+    | (string & {})
     // falsy
-    | "false"
-    | "f"
-    | "no"
-    | "n"
-    | "0";
+    | FalsyString;
+  readonly SHOW_TESTS_IN_PRODUCTION?:
+    | (string & {})
+    // falsy
+    | FalsyString;
 }
 
 interface ImportMeta {
