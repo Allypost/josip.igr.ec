@@ -135,5 +135,8 @@ export default defineConfig({
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
     },
+    define: {
+      __DATE__: `"${new Date().toISOString()}"`,
+    },
   },
 });

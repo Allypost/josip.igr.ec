@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from "astro/types";
 import { Icon } from "astro-icon/components";
 
-import { links } from "~/app/consts";
+import { BUILD_DATE, links } from "~/app/consts";
 import { cn } from "~/app/css";
 
 type Props = HTMLAttributes<"footer">;
@@ -35,8 +35,12 @@ const socials = [
 <footer class={cn("flex text-center", Astro.props.class)} {...Astro.props}>
   <div class="mx-auto rounded-t-lg p-4 pb-2">
     <div class="opacity-50">
-      &copy; <span id="footer__current-year">{today.getFullYear()}</span> Josip Igrec.
-      All rights reserved.
+      &copy; <time
+        datetime={BUILD_DATE.toISOString()}
+        id="footer__current-year"
+      >
+        {today.getFullYear()}
+      </time> Josip Igrec. All rights reserved.
     </div>
     <div class="mt-2 flex justify-center gap-4 text-2xl">
       {
@@ -59,6 +63,8 @@ const socials = [
 <script>
   const el = document.getElementById("footer__current-year");
   if (el) {
-    el.innerText = String(new Date().getFullYear());
+    const now = new Date();
+    el.innerText = String(now.getFullYear());
+    el.setAttribute("datetime", now.toISOString());
   }
 </script>
