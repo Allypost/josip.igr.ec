@@ -8,7 +8,6 @@ const projects = [
   {
     name: "Job Fair web",
     description: "A web application for the Job Fair at FER.",
-    body: "",
     technologies: [
       technologyIcons.vue,
       technologyIcons.nuxt,
@@ -224,10 +223,27 @@ const projects = [
 ].map((x) => ({
   ...x,
   id: `project-${x.name.toLowerCase().replace(/[^\w]/g, "-").replace(/-+/g, "-")}`,
-}));
+})) as {
+  id: string;
+  name: string;
+  description: string;
+  body?: string;
+  technologies: {
+    name: string;
+    icon?: string;
+  }[];
+  links: {
+    name: string;
+    href: string;
+    icon?: string;
+  }[];
+}[];
 ---
 
-<MainLayout title="About me" mainClass="mt-4 flex w-full flex-col gap-8">
+<MainLayout
+  title="About me"
+  mainClass="mt-4 flex w-full max-w-[60ch] flex-col gap-8"
+>
   <h1 class="text-center text-4xl font-bold">
     <pre><code><span class="opacity-50 text-highlight">$</span> <span>whoami</span></code></pre>
   </h1>

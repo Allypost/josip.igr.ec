@@ -3,18 +3,21 @@ import { links, technologies } from "~/app/consts";
 import MainLayout from "~layouts/MainLayout.astro";
 ---
 
-<MainLayout title="Home" mainClass="mt-4 flex flex-col gap-8 text-lg">
+<MainLayout
+  title="Home"
+  mainClass="mt-4 flex max-w-[60ch] flex-col gap-8 text-lg"
+>
   <div class="text-center">
     <h1 class="text-5xl">Hello!</h1>
     <h2 class="text-3xl">I'm <strong>Josip</strong></h2>
   </div>
 
-  <div>
+  <div class="text-center">
     <p>
-      I'm a full-stack engineer who enjoys learning new things and really
+      I'm a full-stack engineer who enjoys learning new things <br />and really
       understanding how stuff works.
     </p>
-    <p>I also like to minimize complexity and cruft in both code and design.</p>
+    <p>I also like to minimize complexity in both code and design.</p>
   </div>
 
   <div>
