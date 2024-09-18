@@ -40,6 +40,14 @@ const typeHandlers: {
       return null;
     }
 
+    if (child.tagName === "section") {
+      const className = child.properties.className;
+
+      if (Array.isArray(className) && className.includes("code-container")) {
+        return null;
+      }
+    }
+
     return {
       action: "wrap",
       nodeName: "div",
