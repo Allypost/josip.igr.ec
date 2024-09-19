@@ -3,24 +3,43 @@ import type { APIRoute } from "astro";
 import satori, { type Font } from "satori";
 import { Resvg } from "@resvg/resvg-js";
 import fs from "node:fs";
+import sharp from "sharp";
 
-import { getVisibleBlogPosts } from "~/app/helpers";
-import { HeroTemplate } from "./_hero_png_template";
+import { getVisibleBlogPosts, hashData } from "~/app/helpers";
+import { SocialTemplate } from "./_social_png_template";
 
 const IOSEVKALLY_FONT_DIR_URL = new URL(
   "./src/assets/font/IosevkAlly/",
   `file://${String(process.env.npm_config_local_prefix)}`,
 );
 
+export const ogPostHash = async (post: CollectionEntry<"blog">) => {
+  const { remarkPluginFrontmatter } = await post.render();
+
+  const data = {
+    title: post.data.title,
+    description: post.data.description,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    words: remarkPluginFrontmatter.wordsOnPage,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    minutes: remarkPluginFrontmatter.minutesRead,
+  };
+
+  return hashData(data);
+};
+
 export async function getStaticPaths() {
-  return (await getVisibleBlogPosts()).map((post) => ({
-    params: {
-      slug: post.slug,
-    },
-    props: {
-      ...post,
-    },
-  }));
+  return Promise.all(
+    (await getVisibleBlogPosts()).map(async (post) => ({
+      params: {
+        slug: post.slug,
+        postHash: await ogPostHash(post),
+      },
+      props: {
+        ...post,
+      },
+    })),
+  );
 }
 
 const FONT_PATHS = [
@@ -48,7 +67,7 @@ type BlogPost = CollectionEntry<"blog">;
 
 export const GET: APIRoute<BlogPost> = async ({ props }) => {
   const svg = await satori(
-    HeroTemplate({
+    SocialTemplate({
       ...props,
       rendered: await props.render(),
     }) as never,
@@ -76,7 +95,7 @@ export const GET: APIRoute<BlogPost> = async ({ props }) => {
   return new Response(png, {
     status: 200,
     headers: {
-      "content-type": "image/png",
+      "content-type": "image/webp",
     },
   });
 };

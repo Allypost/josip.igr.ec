@@ -1,3 +1,4 @@
+import crypto, { type BinaryToTextEncoding } from "node:crypto";
 import { getCollection } from "astro:content";
 
 import { REMOTE_CDN_URL, SHOW_DRAFTS, SHOW_TESTS, SITE_URL } from "./consts";
@@ -22,3 +23,16 @@ export const getVisibleBlogPosts = () =>
   }).then((x) =>
     x.sort((lt, gt) => gt.data.pubDate.valueOf() - lt.data.pubDate.valueOf()),
   );
+
+export const hashData = (
+  data: unknown,
+  props?: Partial<{
+    hashAlgorithm: string;
+    encoding: BinaryToTextEncoding;
+  }>,
+) => {
+  return crypto
+    .createHash(props?.hashAlgorithm ?? "sha256")
+    .update(JSON.stringify(data))
+    .digest(props?.encoding ?? "base64url");
+};
