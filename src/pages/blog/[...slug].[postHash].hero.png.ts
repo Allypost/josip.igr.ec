@@ -65,8 +65,8 @@ export const GET: APIRoute<BlogPost> = async ({ props }) => {
       rendered: await props.render(),
     }) as never,
     {
-      width: 1200,
-      height: 630,
+      width: 1280,
+      height: 720,
       fonts: FONTS,
       // debug: true,
     },
