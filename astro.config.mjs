@@ -5,7 +5,7 @@ import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import playformCompress from "@playform/compress";
-import { defineConfig, squooshImageService } from "astro/config";
+import { defineConfig } from "astro/config";
 import icon from "astro-icon";
 import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -25,6 +25,9 @@ import { remarkAddToc } from "./plugins/remark/remark-toc";
 export default defineConfig({
   // eslint-disable-next-line no-undef
   site: process.env.PUBLIC_SITE_URL ?? "https://josip.igr.ec",
+  image: {
+    remotePatterns: [{ protocol: "https" }],
+  },
   integrations: [
     mdx(),
     sitemap(),
@@ -135,5 +138,8 @@ export default defineConfig({
     define: {
       __DATE__: `"${new Date().toISOString()}"`,
     },
+  },
+  server: {
+    host: true,
   },
 });

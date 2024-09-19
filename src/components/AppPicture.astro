@@ -1,32 +1,91 @@
 ---
 import type { ComponentProps } from "astro/types";
-import { Picture } from "astro:assets";
+import { getImage, Picture } from "astro:assets";
 
 // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 type Props = ComponentProps<typeof Picture> & {
   alt: string;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
-const src = Astro.props.src;
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+const src =
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  Astro.props.src instanceof Promise
+    ? // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
+      await Astro.props.src.then((x) => x.default)
+    : // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      Astro.props.src;
+
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-const alt = Astro.props.alt;
+const srcStr = typeof src === "string" ? src : src.src;
+
+const getImages = async () => {
+  if (
+    typeof src === "string" &&
+    new URL(src, Astro.url).origin === Astro.url.origin
+  ) {
+    console.log("same origin", src);
+    return [];
+  }
+
+  const props = [
+    {
+      format: "avif",
+      quality: 60,
+    },
+    {
+      format: "webp",
+    },
+  ] satisfies Omit<Parameters<typeof getImage>[0], "src">[];
+
+  return Promise.all(
+    props.map((props) =>
+      getImage({
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        src,
+        inferSize: true,
+        ...props,
+      }),
+    ),
+  )
+    .then((x) =>
+      x.filter((x) => {
+        if (x.src === srcStr) {
+          console.log("same src", x);
+        }
+
+        return x.src !== srcStr;
+      }),
+    )
+    .catch((e) => {
+      console.error(e);
+
+      return [];
+    });
+};
+
+const images = await getImages();
 ---
 
 {
-  typeof src === "string" ? (
-    <picture {...Astro.props}>
-      <img src={src} alt={alt as string} decoding="async" loading="lazy" />
+  (
+    <picture>
+      {images.map((props) => (
+        <source
+          srcset={props.srcSet.attribute || props.src}
+          height={props.attributes.height}
+          width={props.attributes.width}
+          type={`image/${props.options.format}`}
+        />
+      ))}
+      <img
+        src={srcStr}
+        loading={Astro.props.loading ?? "lazy"}
+        decoding={Astro.props.decoding ?? "async"}
+        height={src.height}
+        width={src.width}
+        {...Astro.props}
+      />
     </picture>
-  ) : (
-    <Picture
-      loading="lazy"
-      decoding="async"
-      formats={[
-        "webp",
-        //  "avif",
-      ]}
-      {...Astro.props}
-    />
   )
 }
