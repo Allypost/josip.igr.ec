@@ -25,9 +25,6 @@ import { remarkAddToc } from "./plugins/remark/remark-toc";
 export default defineConfig({
   // eslint-disable-next-line no-undef
   site: process.env.PUBLIC_SITE_URL ?? "https://josip.igr.ec",
-  image: {
-    service: squooshImageService(),
-  },
   integrations: [
     mdx(),
     sitemap(),
