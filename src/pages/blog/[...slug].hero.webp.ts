@@ -3,43 +3,34 @@ import type { APIRoute } from "astro";
 import satori, { type Font } from "satori";
 import { Resvg } from "@resvg/resvg-js";
 import fs from "node:fs";
-import sharp from "sharp";
 
 import { getVisibleBlogPosts, hashData } from "~/app/helpers";
-import { SocialTemplate } from "./_social_png_template";
+import { HeroTemplate } from "./_hero_png_template";
+import sharp from "sharp";
 
 const IOSEVKALLY_FONT_DIR_URL = new URL(
   "./src/assets/font/IosevkAlly/",
   `file://${String(process.env.npm_config_local_prefix)}`,
 );
 
-export const ogPostHash = async (post: CollectionEntry<"blog">) => {
-  const { remarkPluginFrontmatter } = await post.render();
-
+// eslint-disable-next-line @typescript-eslint/require-await
+export const heroPostHash = async (post: CollectionEntry<"blog">) => {
   const data = {
     title: post.data.title,
-    description: post.data.description,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    words: remarkPluginFrontmatter.wordsOnPage,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    minutes: remarkPluginFrontmatter.minutesRead,
   };
 
   return hashData(data);
 };
 
 export async function getStaticPaths() {
-  return Promise.all(
-    (await getVisibleBlogPosts()).map(async (post) => ({
-      params: {
-        slug: post.slug,
-        postHash: await ogPostHash(post),
-      },
-      props: {
-        ...post,
-      },
-    })),
-  );
+  return (await getVisibleBlogPosts()).map((post) => ({
+    params: {
+      slug: post.slug,
+    },
+    props: {
+      ...post,
+    },
+  }));
 }
 
 const FONT_PATHS = [
@@ -67,13 +58,13 @@ type BlogPost = CollectionEntry<"blog">;
 
 export const GET: APIRoute<BlogPost> = async ({ props }) => {
   const svg = await satori(
-    SocialTemplate({
+    HeroTemplate({
       ...props,
       rendered: await props.render(),
     }) as never,
     {
-      width: 1200,
-      height: 630,
+      width: 1280,
+      height: 720,
       fonts: FONTS,
       // debug: true,
     },
