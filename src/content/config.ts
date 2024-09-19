@@ -26,6 +26,7 @@ const blog = defineCollection({
           d.setUTCHours(12);
           return d;
         }),
+        author: z.string().optional(),
         updatedDate: z.coerce
           .date()
           .transform((d) => {
