@@ -8,8 +8,8 @@ import FormattedDate from "~components/FormattedDate.astro";
 import TOC from "~components/TOC.astro";
 import MainLayout from "~layouts/MainLayout.astro";
 import type { Heading } from "~plugins/remark/remark-toc";
-import { ogPostHash } from "./[...slug].[postHash].og.png";
-import { heroPostHash } from "./[...slug].[postHash].hero.png";
+import { ogPostHash } from "./[...slug].[postHash].og.webp";
+import { heroPostHash } from "./[...slug].[postHash].hero.webp";
 
 export async function getStaticPaths() {
   return (await getVisibleBlogPosts()).map((post) => ({
@@ -26,11 +26,11 @@ const post = Astro.props;
 const { Content, remarkPluginFrontmatter } = await post.render();
 
 const generatedSocialImage = new URL(
-  `/blog/${post.slug}.${await ogPostHash(post)}.og.png`,
+  `/blog/${post.slug}.${await ogPostHash(post)}.og.webp`,
   Astro.url,
 );
 const generatedHeroImage = new URL(
-  `/blog/${post.slug}.${await heroPostHash(post)}.hero.png`,
+  `/blog/${post.slug}.${await heroPostHash(post)}.hero.webp`,
   Astro.url,
 );
 

@@ -92,7 +92,13 @@ export const GET: APIRoute<BlogPost> = async ({ props }) => {
     .render()
     .asPng();
 
-  return new Response(png, {
+  const webp = await sharp(png)
+    .webp({
+      preset: "text",
+    })
+    .toBuffer();
+
+  return new Response(webp, {
     status: 200,
     headers: {
       "content-type": "image/webp",

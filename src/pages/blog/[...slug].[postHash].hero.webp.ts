@@ -6,6 +6,7 @@ import fs from "node:fs";
 
 import { getVisibleBlogPosts, hashData } from "~/app/helpers";
 import { HeroTemplate } from "./_hero_png_template";
+import sharp from "sharp";
 
 const IOSEVKALLY_FONT_DIR_URL = new URL(
   "./src/assets/font/IosevkAlly/",
@@ -85,10 +86,16 @@ export const GET: APIRoute<BlogPost> = async ({ props }) => {
     .render()
     .asPng();
 
-  return new Response(png, {
+  const webp = await sharp(png)
+    .webp({
+      preset: "text",
+    })
+    .toBuffer();
+
+  return new Response(webp, {
     status: 200,
     headers: {
-      "content-type": "image/png",
+      "content-type": "image/webp",
     },
   });
 };
