@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+  <title>Josip Igrec | CV</title>
+  <style>
+    :root {
+      --font-size: 22px;
+      --transition: cubic-bezier(0.215, 0.69, 0.355, 1);
+      --section-spacing: 1.5em;
+      --background: #FAFAFA;
+      --color: #212121;
+      --link: #170d45;
+      --link-hover: #000000;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --background: #FAFAFA;
+        --color: #212121;
+        --link: #170d45;
+        --link-hover: #000000;
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: #212121;
+        --color: #FAFAFA;
+        --link: #cfd8dc;
+        --link-hover: #ffffff;
+      }
+    }
+
+    html {
+      font-family: 'EB Garamond', serif;
+      width: 55%;
+      margin: 0 auto;
+      font-size: var(--font-size);
+      color: var(--color);
+      background: var(--background);
+      transition: width .5s var(--transition), font-size .5s var(--transition);
+      will-change: width, font-size;
+    }
+
+    @media screen and (max-width: 1264px) {
+      :root {
+        --font-size: 20px;
+      }
+
+      html {
+        width: 70%;
+      }
+    }
+
+    @media screen and (max-width: 960px) {
+      html {
+        width: 92%;
+      }
+    }
+
+    ::selection {
+      background: var(--color);
+      color: var(--background);
+    }
+
+    ::-moz-selection {
+      background: var(--color);
+      color: var(--background);
+    }
+
+    a {
+      position: relative;
+      color: var(--link);
+      text-decoration: underline;
+      text-decoration: underline var(--link-hover);
+      padding: 0 .1em;
+      margin: 0 -.05em;
+      transition: color .5s var(--transition), text-decoration .5s var(--transition);
+    }
+
+    a:hover {
+      color: var(--link-hover);
+      text-decoration: underline;
+      text-decoration: underline var(--link);
+    }
+
+    a:active {
+      text-decoration: underline;
+      text-decoration: underline dashed var(--link);
+    }
+
+    a::after {
+      content: "";
+      position: absolute;
+      bottom: -.05em;
+      left: 0;
+      right: 0;
+      height: 0;
+      background: var(--link);
+      opacity: .2;
+      transition: height .5s var(--transition);
+    }
+
+    a:hover::after {
+      height: 95%;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    h2 {
+      font-weight: normal;
+    }
+
+    .right {
+      float: right;
+      display: flex;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      font-size: 1.15rem;
+    }
+
+    main>section {
+      position: relative;
+    }
+
+    main>section+section {
+      padding-top: var(--section-spacing);
+    }
+
+    main>section+section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      height: 0px;
+      left: -1%;
+      right: -1%;
+      border: 2px solid rgba(0, 0, 0, .5);
+      border-radius: 5px;
+      mix-blend-mode: difference;
+      filter: invert(1);
+    }
+
+    main>section>h3 {
+      margin-top: 0;
+    }
+
+    main>section>h3>a {
+      margin-left: .5em;
+      opacity: 0;
+      text-decoration: none;
+      transition: opacity .5s var(--transition);
+    }
+
+    main>section>h3:hover>a {
+      text-decoration: none;
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Pozdrav!</h1>
+    <h2>Ja sam <b>Josip Igrec</b>.</h2>
+  </header>
+
+  <main>
+    <section id="Uvod">
+      <p>
+        Živim u Zagrebu
+        i student sam na <a target="_blank" rel="noreferrer noopener" href="https://www.fer.unizg.hr">FER</a>u.
+      </p>
+
+      <p>
+        Voditelj sam Računarske sekcije i Web tima u <a target="_blank" rel="noreferrer noopener" href="https://kset.org">KSET</a>u.
+      </p>
+
+      <p>
+        Većinom radim full-stack s Vue i NodeJS okolinama, ali bih se rado upustio u vode Go-a i funkcionalnih
+        programskih jezika (<a href="https://elixir-lang.org/" target="_blank" rel="noreferrer noopener">Elixir</a>
+        zvuči odlično). Volim minimizirati količinu nepotrebnih stvari u kodu i dizajnu. Trenutno otkrivam čari Clojure-a.
+      </p>
+
+      <p>
+        Moj CV je dostupan ovdje: <a href="./Josip_Igrec.pdf">CV.pdf</a>
+      </p>
+    </section>
+
+    <section id="Sadrzaj">
+      <h3>Sadržaj<a href="#Sadrzaj">&sect;</a></h3>
+
+      <ol>
+        <li><a href="#Vanjski_Linkovi">Vanjski linkovi</a></li>
+        <li><a href="#Tehnicke_Vjestine">Tehničke vještine</a></li>
+        <li><a href="#Profesionalno_Iskustvo">Profesionalno iskustvo</a></li>
+        <li><a href="#Projekti">Projekti</a></li>
+      </ol>
+    </section>
+
+    <section id="Vanjski_Linkovi">
+      <h3>Vanjski linkovi<a href="#Vanjski_Linkovi">&sect;</a></h3>
+
+      <p>Od važnijih linkova imam:</p>
+      <ul>
+        <li>GitHub - <a target="_blank" rel="noreferrer noopener"
+            href="https://github.com/Allypost">github.com/Allypost</a></li>
+        <li>LinkedIn - <a target="_blank" rel="noreferrer noopener"
+            href="https://www.linkedin.com/in/josip-igrec">linkedin.com/in/josip-igrec</a></li>
+        <li>Email - <a target="_blank" rel="noreferrer noopener" href="mailto:josip@igr.ec">josip@igr.ec</a></li>
+      </ul>
+    </section>
+
+    <section id="Tehnicke_Vjestine">
+      <h3>Tehničke vještine<a href="#Tehnicke_Vjestine">&sect;</a></h3>
+
+      <p>Napredno znanje:</p>
+      <ul>
+        <li>
+          <strong>VueJS</strong> - Primarno na privatnim projektima i projektima za KSET.
+        </li>
+
+        <li>
+          <strong>ES6+/NodeJS</strong> - Usko vezano uz VueJS.
+        </li>
+
+        <li>
+          <strong>PHP</strong> - Prvi jezik koji sam naučio,
+          1.5 godina profesionalnog i 7 neprofesionalnog iskustva.
+        </li>
+
+        <li>
+          <strong>(S)CSS</strong> - Dobro upoznat s trikovima i sposoban riješiti većinu problema.
+          Implementirao sam nekoliko postojećih dizajnova.
+        </li>
+      </ul>
+
+      <p>Dobro poznavanje:</p>
+      <ul>
+        <li>
+          <strong>Python</strong> - Malo profesionalnog iskustva, većinom poznajem iz održavanja KSET aplikacija i
+          pisanja laboratorijskih vježbi za fakultet.
+        </li>
+
+        <li>
+          <strong>Java</strong> - Nešto profesionalnog iskustva, završen kolegij Objektno Orijentirano Programiranje
+          (jak naglasak na Javu) s ocjenom odličan.
+        </li>
+
+        <li>
+          <strong>docker(-compose)</strong> - Sve što radim prvo dokeriziram pa tek onda nastavim.
+        </li>
+      </ul>
+
+      <p>Susreo sam se s:</p>
+      <ul>
+        <li><strong>React</strong> - Završio sam Infinumov React Academy tečaj 2018.</li>
+        <li><strong>Go</strong> - Položio sam vještinu <a target="_blank" rel="noreferrer noopener"
+            href="https://www.fer.unizg.hr/predmet/pjg">Programski jezik
+            Go</a> i napravio manje aplikacije za potrebe Projekta na fakultetu te manje aplikacije za vlastitu korist
+        </li>
+        <li><strong>Elixir</strong> - Osobno izrazito zanimljiv jezik. Napravio sam sustav za autorizaciju članova KSETa
+          te nekoliko manjih projekata</li>
+      </ul>
+    </section>
+
+    <section id="Profesionalno_Iskustvo">
+      <h3>Profesionalno iskustvo<a href="#Profesionalno_Iskustvo">&sect;</a></h3>
+
+      <ul>
+        <li>
+          <p>
+            <b><a target="_blank" rel="noreferrer noopener" href="https://aboutdream.io/">Implementacija
+                Snova</a></b>
+            <span class="right">3. 2020. - 9. 2020.</span>
+          </p>
+
+          <p>
+            <i>Fullstack Developer</i>
+          </p>
+
+          <p>
+            <i>
+              <small>
+                Python, Java (Spring), PHP (WordPress), Angular, TypeScript, jQuery, SCSS
+              </small>
+            </i>
+          </p>
+
+          <p>
+            Prijavio sam se kao Python/Angular fullstack developer,
+            ali sam na kraju radio na raznim projektima.
+
+            Pomagao sam na raznim internim projektima
+            te projektima za klijente.
+          </p>
+          <p>
+            Počeo sam s dodavanjem podrške za import podataka iz excel tablica
+            te promjenama na razinama autorizacija na Django aplikaciji (Python/Django).
+          </p>
+          <p>
+            Prešao na poboljšanje korisničkog sučelja (frontenda) te aplikacije.
+            Neka od poboljšanja i promjena koje sam napravio su dodavanja nove vrste grafa,
+            razrješavanja race conditiona u logici te ažuriranja dizajna većih dijelova aplikacije (TypeScript/Angular).
+          </p>
+          <p>
+            Tokom oba projekta sam povremeno pomagao raditi interaktivne "igre" za potrebe <a
+              href="https://www.algebra.hr/visoko-uciliste/carnet-potpisani-ugovori-za-izradu-digitalnih-obrazovnih-sadrzaja/">Algebrinih
+              "Digitalnih obrazovnih sadržaja"</a> (JavaScript/jQuery/SCSS/Vue).
+          </p>
+          <p>
+            Pomagao sam pri izradi stranice za <a target="_blank" rel="noreferrer noopener"
+              href="https://deep-conference.com/">Deep konferenciju</a>.
+            Implementirao sam sustav plaćanja (napisao dva plugina za integraciju
+            <a target="_blank" rel="noreferrer noopener" href="https://monri.com/">Monri</a>ja koji se vežu na postojeći
+            <a target="_blank" rel="noreferrer noopener" href="https://eventespresso.com/">Event Espresso</a> plugin te
+            radio promjene na samom pluginu)
+            (PHP/CSS).
+          </p>
+          <p>
+            Zadnji značajniji projekt na kojem sam radio je još pod NDAom,
+            ali na njemu radio s povećom Spring Boot aplikacijom koju je
+            održavalo nekoliko timova u različitim tvrtkama
+          </p>
+        </li>
+
+        <li>
+          <p>
+            <b><a target="_blank" rel="noreferrer noopener" href="https://www.trikoder.net/">Trikoder</a></b>
+            <span class="right">4. 2019. - 3. 2020.</span>
+          </p>
+
+          <p>
+            <i>Junior Backend Developer</i>
+          </p>
+
+          <p>
+            <i>
+              <small>
+                PHP, Docker, GitLab CI, Git, PostgreSQL, Linux, ElasticSearch
+              </small>
+            </i>
+          </p>
+
+          <p>
+            Pozicija mi je bila Junior Backend Developer u Architecture timu.
+            Prvenstveno sam radio na Njuškalu, ali sam pridonio i razvoju interne platforme
+            za dokumentaciju te open source paketu <a target="_blank" rel="noreferrer noopener"
+              href="https://github.com/trikoder/oauth2-bundle">trikoder/oauth2-bundle</a>.
+          </p>
+          <p>
+            Pomagao sam razraditi testnu okolinu,
+            razriješiti deprekacije u kodu,
+            podići PHP verziju Njuškala sa 7.1 na 7.3,
+            dodati striktnije provjere kvalitete koda,
+            dodati status stranicu za testne okoline
+            te unaprijediti CI sustav s dodatnim fazama.
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="Volontersko_Iskustvo">
+      <h3>Volontersko Iskustvo<a href="#Volontersko_Iskustvo">&sect;</a></h3>
+
+      <ul>
+        <li>
+          <p>
+            <b><a href="#Projekti__Job_Fair">Job Fair</a> i <a href="#Projekti__Job_Fair_Meetup">Job Fair Meetup</a></b>
+            <span class="right">1. 2019. -</span>
+          </p>
+
+          <p>
+            <i>Organizacija i development</i>
+          </p>
+
+          <p>
+            Sudjelovao sam u organizaciji oba događaja i u stvaranju stranice za Job Fair Meetup i novi Job Fair.
+          </p>
+          <p>
+            Ogranizacija uključuje tjedne sastanke gdje se raspravlja o aspektima događaja poput organizacije
+            networkinga, planova u slučaju restrikcija zbog epidemiološke situacije, dizajn sastanaka i definicije
+            potrebnih funkcionalnosti stranice.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            <b>KSET Računarska sekcija</b>
+            <span class="right">10. 2018. -</span>
+          </p>
+
+          <p>
+            <i>Voditelj sekcije i web tima</i>
+          </p>
+
+          <p>
+            Voditelj sam Web tima koji se bavi razvojem i održavanjem web stranica projekata u kojima KSET sudjeluje te
+            internih stranica i alata.
+            <br>
+            Također sam voditelj računarske sekcije gdje se bavim organizacijom članova, pokretanjem
+            novih i nadziranjem postojećih projekata te ostalim administracijskim poslovima sekcije.
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="Projekti">
+      <h3>Projekti (ne profesionalni)<a href="#Projekti">&sect;</a></h3>
+
+      <p>Od značajnijih projekata na kojima sam radio valja izdvojiti:</p>
+
+      <ul>
+        <li>
+          <p>
+            <strong>
+              <a id="Projekti__Job_Fair" target="_blank" rel="noreferrer noopener"
+                href="https://jobfair.fer.unizg.hr">Job Fair (2022 - )</a>
+              
+              <span class="right">
+                <a target="_blank" rel="noreferrer noopener" href="https://github.com/KSET/jobfair-2022">
+                  <small>
+                    &lt;izvorni kôd&gt;
+                  </small>
+                </a>
+              </span>
+            </strong>
+          </p>
+
+          <p>
+            <i>
+              <small>
+                NodeJS, Vue 3, Nuxt, Docker, Prisma, PostgreSQL, GraphQL
+              </small>
+            </i>
+          </p>
+
+          <p>
+            Voditelj development tima za novu stranicu.
+            <br>
+            Sudjelovao sam u sastancima za definiranje zahtjeva i tehničke dokumentacije.
+            <br>
+            Glavni sam doprinositelj kôdu stranice te glavna zadužna osoba.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            <strong>
+              <a id="Projekti__Job_Fair_Meetup" target="_blank" rel="noreferrer noopener"
+                href="https://jobfairmeetup.fer.unizg.hr">Job Fair Meetup</a>
+
+              <span class="right">
+                <a target="_blank" rel="noreferrer noopener" href="https://github.com/KSET/jobfair-meetup">
+                  <small>
+                    &lt;izvorni kôd&gt;
+                  </small>
+                </a>
+              </span>
+            </strong>
+          </p>
+
+          <p>
+            <i>
+              <small>
+                Vue, Express, SCSS, Docker, PostgreSQL, GraphQL
+              </small>
+            </i>
+          </p>
+
+          <p>
+            Autor sam stranice za Job Fair Meetup.
+            <br>
+            Na stranici sam napravio sve osim odličnog dizajna koji sam dobio od Dizajn tima.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            <strong>
+              <a id="Projekti__Job_Fair" target="_blank" rel="noreferrer noopener"
+                href="https://jobfair.fer.unizg.hr">Job Fair (2017 - 2019)</a>
+            </strong>
+          </p>
+
+          <p>
+            <i>
+              <small>
+                Ruby on Rails, Docker, PostgreSQL, GraphQL
+              </small>
+            </i>
+          </p>
+
+          <p>
+            Pomagao sam na održavanju dok je bila primarna aplikacija vezana za Job Fair događaj.
+            <br>
+            Sad održavam i dodajem potrebne zakrpe dok se ne pređe na novu stranicu.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            <strong>
+              <a target="_blank" rel="noreferrer noopener" href="https://brucosijada.kset.org/">Brucošijada FER-a</a>
+            </strong>
+          </p>
+
+          <p>
+            <i>
+              <small>
+                Vue, SCSS, Express, PostgreSQL
+              </small>
+            </i>
+          </p>
+
+          <p>
+            Na stranici sam napravio sve osim odličnog dizajna koji sam dobio od Dizajn tima.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            <strong>
+              <a target="_blank" rel="noreferrer noopener" href="https://landofnevard.net/">Land of Nevard</a>
+
+              <span class="right">
+                <small>
+                  (web text-based RPG)
+                </small>
+              </span>
+            </strong>
+          </p>
+
+          <p>
+            <i>
+              <small>
+                PHP, SCSS, Vue, MariaDB
+              </small>
+            </i>
+          </p>
+
+          <p>
+            Pomagao sam s održavanjem.
+            <br>
+            Unaprijedio sam značajan dio koda te dodao inventory i chat sustave.
+          </p>
+        </li>
+      </ul>
+    </section>
+  </main>
+</body>
+
+</html>
