@@ -34,6 +34,10 @@
     "**/*.jsx",
     "**/*.mjs",
     "**/*.cjs",
-    "**/*.mdx"
+    "**/*.mdx",
+    ".astro/types.d.ts",
+  ],
+  "exclude": [
+    "dist"
   ]
 }
