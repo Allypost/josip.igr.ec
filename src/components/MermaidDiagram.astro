@@ -1,0 +1,63 @@
+---
+type Props = {
+  code: string;
+  title: string;
+};
+
+const { code: codeRaw, title } = Astro.props;
+const code = (codeRaw || "").trim();
+const randId = `mmch_${Date.now().toString(36)}_${Math.random().toString(36).slice(2)}`;
+---
+
+<figure class="relative text-base leading-none">
+  <div class="mermaid-diagram">
+    <x-mermaid-diagram
+      class="flex justify-center"
+      data-id={randId}
+      data-code={code}></x-mermaid-diagram>
+  </div>
+  <figcaption>{title}</figcaption>
+</figure>
+
+<script>
+  import mermaid from "mermaid";
+
+  class MermaidDiagram extends HTMLElement {
+    connectedCallback() {
+      const code = this.dataset.code;
+      const id =
+        this.dataset.id ||
+        `mmch_${Date.now().toString(36)}_${Math.random().toString(36).slice(2)}`;
+
+      if (!code) {
+        this.innerHTML = "No code provided";
+        return;
+      }
+
+      this.innerHTML = "Loading...";
+
+      mermaid
+        .render(id, code)
+        .then(({ svg, bindFunctions, diagramType }) => {
+          this.innerHTML = svg;
+          this.dataset.diagramType = diagramType;
+          if (bindFunctions) {
+            bindFunctions(this);
+          }
+        })
+        .catch((e) => console.error(e));
+    }
+  }
+
+  customElements.define("x-mermaid-diagram", MermaidDiagram);
+</script>
+
+<style lang="scss">
+  figure {
+    @apply w-full;
+
+    figcaption {
+      @apply text-center;
+    }
+  }
+</style>

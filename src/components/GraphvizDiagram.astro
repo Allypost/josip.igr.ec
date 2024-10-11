@@ -1,0 +1,92 @@
+---
+import { graphvizRender, type Engine } from "~/app/graphviz";
+
+type Props = {
+  code: string;
+  engine?: Engine;
+  title: string;
+};
+
+const randId = `${Date.now().toString(36)}_${Math.random().toString(36).slice(2)}`;
+
+const { code: codeRaw, engine = "dot", title } = Astro.props;
+
+const code = (codeRaw || "").trim();
+
+const renderFontsizeNode = 16;
+const renderFontsizeEdge = renderFontsizeNode * 0.8;
+
+const svg = code
+  ? (
+      await graphvizRender(code, {
+        format: "svg",
+        engine,
+        graphAttributes: {
+          bgcolor: "#ffffff00",
+          fontname: "Courier",
+          id: `${randId}__\\G`,
+          compound: true,
+          nodesep: 0.3,
+          fontsize: renderFontsizeNode,
+        },
+        nodeAttributes: {
+          shape: "box",
+          id: `${randId}__\\N`,
+          fontname: "Courier",
+          fontsize: renderFontsizeNode,
+        },
+        edgeAttributes: {
+          arrowsize: 0.75,
+          fontname: "Courier",
+          fontsize: renderFontsizeEdge,
+          id: `${randId}__\\E`,
+        },
+      })
+    )
+      .replaceAll(`font-family="Courier,monospace"`, "")
+      .replaceAll(/"(\d+(:?\.\d+)?)pt"/g, `"$1px"`)
+  : "";
+---
+
+<figure class="graphviz-diagram flex !max-w-full flex-col">
+  <div class="relative text-base leading-none">
+    <Fragment set:html={svg} />
+  </div>
+  <figcaption>{title}</figcaption>
+</figure>
+
+<style lang="scss" is:global>
+  figure.graphviz-diagram {
+    @apply w-full;
+
+    svg {
+      @apply mx-auto max-w-full font-mono;
+
+      text {
+        fill: currentColor;
+        stroke: none;
+        filter: none;
+      }
+
+      .node {
+        > :not(text) {
+          stroke: rgb(var(--color-highlight));
+          filter: drop-shadow(0 0 6px rgb(var(--color-highlight) / 30%));
+          fill: rgb(var(--color-base-bg));
+        }
+      }
+
+      .edge {
+        // Arrow body
+        > path {
+          stroke: currentColor;
+        }
+        // Arrowhead
+        > polygon {
+          stroke: none;
+          fill: currentColor;
+        }
+      }
+    }
+  }
+</style>

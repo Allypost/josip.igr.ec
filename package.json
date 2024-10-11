@@ -18,12 +18,15 @@
     "@astrojs/rss": "4.0.7",
     "@astrojs/sitemap": "3.1.6",
     "@astrojs/tailwind": "5.1.1",
+    "@pintora/cli": "^0.7.6",
     "@playform/compress": "^0.1.1",
     "@types/react-dom": "^18.3.0",
+    "@viz-js/viz": "^3.9.0",
     "astro": "4.15.9",
     "astro-icon": "^1.1.0",
     "astro-seo": "^0.8.4",
     "lodash": "^4.17.21",
+    "mermaid": "^11.2.1",
     "rambdax": "^11.1.1",
     "react-dom": "^18.3.1",
     "remark-flexible-code-titles": "^1.2.0",
@@ -78,5 +81,8 @@
     "type-fest": "^4.20.1",
     "typescript-eslint": "^8.3.0",
     "wrangler": "^3.61.0"
+  },
+  "overrides": {
+    "canvas": "v3.0.0-rc2"
   }
 }

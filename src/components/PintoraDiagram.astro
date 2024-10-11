@@ -1,0 +1,88 @@
+---
+import { render } from "@pintora/cli";
+
+type Props = {
+  code: string;
+  title: string;
+};
+
+const { code: codeRaw, title } = Astro.props;
+
+const code = (codeRaw || "").trim();
+const svg = code
+  ? await render({
+      code: code,
+      pintoraConfig: {
+        core: {
+          useMaxWidth: true,
+          defaultFontFamily: "'IosevkAlly', monospace",
+        },
+      },
+      mimeType: "image/svg+xml",
+      width: 1080,
+      devicePixelRatio: 10,
+      backgroundColor: "#ffffff00",
+    })
+      .then((x) =>
+        (x as unknown as Awaited<typeof x>)
+          .toString()
+          .replaceAll('font-family="Source Code Pro, sans-serif"', "")
+          .replace(
+            /<svg (.*?) height="(\d+(:?\.\d+)?)"/,
+            '<svg $1 height="calc($2px * 16 / 14 - 32px)"',
+          )
+          .replace(
+            /<g opacity="1" transform="matrix(.*?)">/g,
+            `<g opacity="1" transform="scale(${(16 / 14).toString()})">`,
+          ),
+      )
+      .catch((e) => {
+        console.error(e);
+        return `<div style="color: red; font-weight: bold; font-size: 1.5em; text-align: center;">Error rendering pintora diagram</div><pre><code>${code}</code></pre>`;
+      })
+  : "";
+---
+
+<figure class="flex !max-w-full flex-col">
+  <div><Fragment set:html={svg} /></div>
+  <figcaption>{title}</figcaption>
+</figure>
+
+<style lang="scss">
+  figure {
+    @apply w-full;
+
+    :global(svg) {
+      @apply mx-auto;
+
+      :global(g) {
+        :global(text) {
+          fill: currentColor;
+        }
+
+        // Boxes
+        :global(path) {
+          stroke: rgb(var(--color-highlight));
+          filter: drop-shadow(0 0 6px rgb(var(--color-highlight) / 30%));
+          fill: rgb(var(--color-base-bg));
+        }
+
+        // Arrows
+        :global(g) > :global(path) {
+          stroke: currentColor;
+          filter: none;
+          fill: none;
+
+          &[stroke="none"] {
+            stroke: none;
+            fill: currentColor;
+          }
+        }
+      }
+    }
+
+    figcaption {
+      @apply text-center;
+    }
+  }
+</style>
