@@ -45,6 +45,7 @@ const svg = code
     )
       .replaceAll(`font-family="Courier,monospace"`, "")
       .replaceAll(/"(\d+(:?\.\d+)?)pt"/g, `"$1px"`)
+      .replaceAll(/<title>(.*?)<\/title>/g, "")
   : "";
 ---
 
