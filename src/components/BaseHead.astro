@@ -165,6 +165,14 @@ const seoData = merge(
   } as SeoPropsStrict,
   seoProp,
 );
+
+const preloadFonts = [
+  "IosevkAllyP-Regular.latin",
+  "IosevkAllyP-Bold.latin",
+  "IosevkAllySP-Regular.latin",
+  "IosevkAllySP-Bold.latin",
+  "IosevkAlly-Bold.latin",
+].map((x) => `/pkg/font/IosevkAlly/${x}.woff2`);
 ---
 
 <meta charset="utf-8" />
@@ -184,6 +192,7 @@ const seoData = merge(
 />
 
 <link rel="preconnect" href={remoteCdnUrl()} crossorigin />
+{ preloadFonts.map((x) => <link rel="preload" href={remoteCdnUrl(x)} as="font" type="font/woff2" crossorigin />) }
 <link
   rel="stylesheet"
   href={remoteCdnUrl("/pkg/font/IosevkAlly/full-family.css")}
