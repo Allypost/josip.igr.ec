@@ -23,12 +23,7 @@ for (const post of posts) {
     {
       Array.from(tags.entries()).map(([tag, numPosts]) => (
         <li class="mt-1 list-inside list-disc">
-          <a
-            transition:name={`blog__tag__${tag}`}
-            href={`/blog/tags/${encodeURIComponent(tag)}`}
-          >
-            #{tag}
-          </a>
+          <a href={`/blog/tags/${encodeURIComponent(tag)}`}>#{tag}</a>
           {`(${numPosts.toString()})`}
         </li>
       ))
