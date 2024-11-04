@@ -38,6 +38,14 @@ export const SHOW_TESTS_IN_PRODUCTION = !FALSY_ENV_STRINGS.includes(
 
 export const SHOW_TESTS = !IS_PRODUCTION || SHOW_TESTS_IN_PRODUCTION;
 
+export const SHOW_UNLISTED_IN_PRODUCTION = !FALSY_ENV_STRINGS.includes(
+  String(
+    import.meta.env.SHOW_UNLISTED_IN_PRODUCTION ?? "false",
+  ).toLowerCase() as never,
+);
+
+export const SHOW_UNLISTED = !IS_PRODUCTION || SHOW_UNLISTED_IN_PRODUCTION;
+
 const _technologyIcons = <
   const T extends {
     [key: string]: {

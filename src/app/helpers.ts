@@ -1,7 +1,13 @@
 import crypto, { type BinaryToTextEncoding } from "node:crypto";
 import { getCollection } from "astro:content";
 
-import { REMOTE_CDN_URL, SHOW_DRAFTS, SHOW_TESTS, SITE_URL } from "./consts";
+import {
+  REMOTE_CDN_URL,
+  SHOW_DRAFTS,
+  SHOW_TESTS,
+  SHOW_UNLISTED,
+  SITE_URL,
+} from "./consts";
 
 const urlHelper = (base: string | URL) => (path?: string | URL) =>
   new URL(path ?? "", base);
@@ -22,6 +28,17 @@ export const getVisibleBlogPosts = () =>
     return true;
   }).then((x) =>
     x.sort((lt, gt) => gt.data.pubDate.valueOf() - lt.data.pubDate.valueOf()),
+  );
+
+export const getListableBlogPosts = () =>
+  getVisibleBlogPosts().then((x) =>
+    x.filter((x) => {
+      if (x.data.unlisted && !SHOW_UNLISTED) {
+        return false;
+      }
+
+      return true;
+    }),
   );
 
 export const hashData = (

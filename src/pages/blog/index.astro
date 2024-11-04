@@ -1,10 +1,10 @@
 ---
 import { cn } from "~/app/css";
-import { getVisibleBlogPosts } from "~/app/helpers";
+import { getListableBlogPosts } from "~/app/helpers";
 import FormattedDate from "~components/FormattedDate.astro";
 import MainLayout from "~layouts/MainLayout.astro";
 
-const posts = await getVisibleBlogPosts();
+const posts = await getListableBlogPosts();
 ---
 
 <MainLayout

@@ -36,6 +36,7 @@ const blog = defineCollection({
           .optional(),
         draft: z.boolean().optional().default(false),
         test: z.boolean().optional().default(false),
+        unlisted: z.boolean().optional().default(false),
         tags: z.array(z.string()).optional(),
       })
       .and(

@@ -1,8 +1,8 @@
 ---
-import { getVisibleBlogPosts } from "~/app/helpers";
+import { getListableBlogPosts } from "~/app/helpers";
 import MainLayout from "~layouts/MainLayout.astro";
 
-const posts = await getVisibleBlogPosts();
+const posts = await getListableBlogPosts();
 const tags = new Map<string, number>();
 
 for (const post of posts) {
