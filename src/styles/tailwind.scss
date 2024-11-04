@@ -148,9 +148,13 @@
   }
 }
 
+// $color-app-white: 231 229 228; // Original
+$color-app-white: 255 248 231; // Cosmic latte
+$color-app-black: 28 25 23;
+
 @mixin incl-light {
-  --color-base-fg: 28 25 23;
-  --color-base-bg: 231 229 228;
+  --color-base-fg: #{$color-app-black};
+  --color-base-bg: #{$color-app-white};
   --color-highlight: 105 32 165;
   --color-highlight-muted: 46 0 84;
   --color-code-bg: 245 245 245;
@@ -158,8 +162,8 @@
 }
 
 @mixin incl-dark {
-  --color-base-fg: 231 229 228;
-  --color-base-bg: 28 25 23;
+  --color-base-fg: #{$color-app-white};
+  --color-base-bg: #{$color-app-black};
   --color-highlight: 197 139 255;
   --color-highlight-muted: 198 182 216;
   --color-code-bg: 38 38 38;
