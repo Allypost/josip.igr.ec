@@ -24,7 +24,6 @@ const getImages = async () => {
     typeof src === "string" &&
     new URL(src, Astro.url).origin === Astro.url.origin
   ) {
-    console.log("same origin", src);
     return [];
   }
 
