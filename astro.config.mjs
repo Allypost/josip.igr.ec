@@ -19,6 +19,7 @@ import rehypeRemoteLinksGetTarget from "./plugins/rehype/remote-links-get-target
 import { remarkReadingTime } from "./plugins/remark/remark-reading-time";
 import { rehypeWrapRootElementsInContainers } from "./plugins/rehype/wrap-root-elements-in-containers";
 import { rehypeDeleteEmptyElements } from "./plugins/rehype/delete-empty-elements";
+import { rehypeWrapParagraphWithTextIntoSections } from "./plugins/rehype/wrap-paragraph-with-text-into-sections";
 import { remarkAddToc } from "./plugins/remark/remark-toc";
 
 // https://astro.build/config
@@ -124,6 +125,7 @@ export default defineConfig({
         },
       ],
       rehypeWrapRootElementsInContainers,
+      rehypeWrapParagraphWithTextIntoSections,
       rehypeDeleteEmptyElements,
     ],
   },

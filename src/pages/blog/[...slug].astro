@@ -69,7 +69,7 @@ const {
     },
   }}
 >
-  <article>
+  <article class="flex flex-col gap-4">
     <header
       class={cn({
         "rounded-md bg-red-500/40 p-2 before:block before:text-center before:text-3xl":
@@ -100,48 +100,69 @@ const {
         <span>{remarkPluginFrontmatter.minutesRead}</span>
       </div>
 
-      <p class="mb-4">{description}</p>
+      <p>{description}</p>
     </header>
 
-    <div class="mb-4">
-      <AppPicture
-        src={heroImage ?? (generatedHeroImage.toString() as never)}
-        alt={heroImageAlt ?? title}
-        loading="eager"
-        class="mx-auto block aspect-video w-full rounded-md object-cover shadow"
-      />
-    </div>
+    <AppPicture
+      src={heroImage ?? (generatedHeroImage.toString() as never)}
+      alt={heroImageAlt ?? title}
+      loading="eager"
+      class="mx-auto block aspect-video w-full rounded-md object-cover shadow"
+    />
 
-    <div
-      class="table-of-contents flex flex-col gap-2 rounded-md bg-base-fg/10 p-4"
-    >
-      <h2 class="no-prefix text-2xl font-bold">Content</h2>
-      <input
-        type="checkbox"
-        id="__expand-blog-content-section"
-        class="hidden"
-        aria-hidden="true"
-      />
-      <TOC
-        class="text-md max-h-20 overflow-hidden"
-        headings={remarkPluginFrontmatter.generatedHeadings as Heading[]}
-      />
-      <label
-        class="mx-auto cursor-pointer after:content-['more']"
-        for="__expand-blog-content-section">Show&nbsp;</label
+    {
+      (remarkPluginFrontmatter.generatedHeadings as unknown[]).length > 0 ? (
+        <div class="table-of-contents flex flex-col gap-2 rounded-md bg-base-fg/10 p-4">
+          <h2 class="no-prefix text-2xl font-bold">Content</h2>
+          <input
+            type="checkbox"
+            id="__expand-blog-content-section"
+            aria-hidden="true"
+          />
+          <TOC
+            class="text-md max-h-20 overflow-hidden hover:overflow-y-auto hover:overscroll-contain"
+            headings={remarkPluginFrontmatter.generatedHeadings as Heading[]}
+          />
+          <label aria-hidden="true" for="__expand-blog-content-section">
+            Show&nbsp;
+          </label>
+        </div>
+      ) : null
+    }
+
+    <div class="relative">
+      <div class="blog-post-content">
+        <Content />
+      </div>
+
+      <div
+        style={{
+          "--offset-from-article-start": "25vh",
+        }}
+        class="absolute right-4 top-[--offset-from-article-start] h-[calc(100%-var(--offset-from-article-start))]"
       >
+        <a
+          href="#__header"
+          style={{
+            "--button-size": "2.375rem",
+          }}
+          class="link-no-invert sticky top-[calc(100vh-var(--button-size)-2rem)] z-20 block aspect-square h-[--button-size] rounded-md bg-base-fg text-center text-3xl font-bold text-base-bg no-underline opacity-50 transition-all duration-300 hover:opacity-100 hover:transition-none"
+          title="Back to top"
+          aria-label="Back to top"
+        >
+          &uarr;
+        </a>
+      </div>
     </div>
 
-    <div class="blog-post-content">
-      <Content />
-    </div>
+    <hr class="my-4 border-t-2 border-highlight/30" />
 
     {
       tags ? (
-        <div class="mt-12 flex flex-wrap gap-2">
+        <div class="flex flex-wrap gap-2">
           {tags.map((tag) => (
             <a
-              href={`/blog/tags/${encodeURIComponent(tag)}`}
+              href={`/blog/tags/${encodeURIComponent(tag)}/`}
               class="link-monochrome"
             >
               #{tag}
@@ -151,25 +172,29 @@ const {
       ) : null
     }
   </article>
-
-  <a
-    href="#__header"
-    class="link-no-invert fixed bottom-8 right-4 z-20 block aspect-square h-[1.25em] rounded-md bg-base-fg text-center text-3xl font-bold text-base-bg no-underline opacity-50 transition-all duration-300 hover:opacity-100 hover:transition-none"
-    title="Back to top"
-    aria-label="Back to top"
-  >
-    &uarr;
-  </a>
 </MainLayout>
 
 <style is:global>
-  #__expand-blog-content-section:checked {
-    & + ul {
-      max-height: none;
+  #__expand-blog-content-section {
+    display: none;
+
+    & ~ label {
+      cursor: pointer;
+      margin-inline: auto;
+
+      &:after {
+        content: "more";
+      }
     }
 
-    & ~ label:after {
-      content: "less";
+    &:checked {
+      & + ul {
+        max-height: none;
+      }
+
+      & ~ label:after {
+        content: "less";
+      }
     }
   }
 
@@ -182,11 +207,36 @@ const {
   .blog-post-content {
     @apply grid justify-center leading-relaxed;
     grid-template-columns: minmax(0, 1fr) minmax(0, 70ch) minmax(0, 1fr);
+    counter-reset: blog-figure;
+
+    ::marker {
+      @apply text-highlight/70;
+
+      &:nth-child(odd) {
+        @apply text-highlight/90;
+      }
+    }
+
+    > *:first-child {
+      @apply mt-12;
+
+      > *:first-child {
+        @apply mt-0;
+      }
+    }
 
     > * {
       grid-column: 2;
       text-wrap: wrap;
       text-wrap: pretty;
+    }
+
+    > section {
+      position: relative;
+
+      > * + * {
+        @apply mt-6;
+      }
     }
 
     a[href^="#"] {
@@ -242,13 +292,6 @@ const {
       @apply rounded bg-neutral-900 px-2 py-1 text-neutral-100 dark:bg-neutral-200 dark:text-neutral-900;
     }
 
-    p + p,
-    div + div,
-    p + div,
-    div + p {
-      @apply mt-6;
-    }
-
     blockquote {
       @apply border-l-4 border-gray-300 py-2 pl-4;
 
@@ -256,6 +299,11 @@ const {
       div {
         @apply my-0;
       }
+    }
+
+    b,
+    strong {
+      @apply font-extrabold tracking-wide contrast-150;
     }
 
     table {
@@ -288,11 +336,20 @@ const {
     h4,
     h5,
     h6 {
-      @apply mb-4 mt-16 font-bold;
+      @apply mb-2 mt-12 font-bold;
+      @apply sticky -top-px z-10 mb-0 bg-base-bg text-3xl;
       scroll-margin-top: 1rem;
 
+      @media (max-height: 350px) {
+        @apply !relative;
+      }
+
+      & + * {
+        @apply !mt-2;
+      }
+
       &:not(.no-prefix)::before {
-        @apply text-highlight/70 content-['»_'];
+        @apply mr-[1ch] tracking-[-0.35em] text-highlight/70;
       }
 
       & + & {
@@ -309,27 +366,55 @@ const {
       }
 
       &:hover > a {
-        @apply inline-flex;
+        @apply inline;
       }
     }
 
     h1 {
-      @apply text-3xl;
+      &:not(.no-prefix)::before {
+        @apply content-['›'];
+      }
     }
     h2 {
-      @apply text-2xl;
+      &:not(.no-prefix)::before {
+        @apply content-['››'];
+      }
+    }
+    h1,
+    h2 {
+      @apply mt-24 text-3xl;
+
+      & + * {
+        @apply !mt-4;
+      }
     }
     h3 {
-      @apply text-xl;
+      @apply text-2xl;
+
+      &:not(.no-prefix)::before {
+        @apply content-['›››'];
+      }
     }
     h4 {
-      @apply text-lg;
+      @apply text-xl;
+
+      &:not(.no-prefix)::before {
+        @apply content-['››››'];
+      }
     }
     h5 {
-      @apply text-base;
+      @apply text-lg;
+
+      &:not(.no-prefix)::before {
+        @apply content-['›››››'];
+      }
     }
     h6 {
-      @apply text-sm;
+      @apply text-base;
+
+      &:not(.no-prefix)::before {
+        @apply content-['››››››'];
+      }
     }
 
     ul {
@@ -350,10 +435,16 @@ const {
     }
 
     figure {
-      @apply mx-auto max-w-[90%];
+      @apply mx-auto w-11/12;
+      counter-increment: blog-figure;
 
       figcaption {
-        @apply p-1 opacity-60;
+        @apply p-1 text-center opacity-60;
+
+        &::before {
+          content: "Fig. " counter(blog-figure) ". ";
+          font-style: italic;
+        }
       }
     }
 
