@@ -294,6 +294,27 @@ const projects = [
     </div>
   </div>
 
+  <div class="flex flex-col items-start">
+    <h3 class="text-xl font-bold">Links to my socials:</h3>
+    <ul>
+      {
+        Object.values(links).map((x) => (
+          <li class="my-1">
+            <a
+              href={x.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="link-no-external link-monochrome flex items-center gap-2 px-1 py-0.5"
+            >
+              <Icon name={x.icon} />
+              <span>{x.text}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
   <div class="flex flex-col gap-2">
     <h3 id="projects" class="text-xl font-bold">My projects</h3>
     <p>
@@ -343,26 +364,5 @@ const projects = [
         ))
       }
     </div>
-  </div>
-
-  <div class="flex flex-col items-start">
-    <h3 class="text-xl font-bold">Links to my socials:</h3>
-    <ul>
-      {
-        Object.values(links).map((x) => (
-          <li class="my-1">
-            <a
-              href={x.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="link-no-external link-monochrome flex items-center gap-2 px-1 py-0.5"
-            >
-              <Icon name={x.icon} />
-              <span>{x.text}</span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
   </div>
 </MainLayout>
