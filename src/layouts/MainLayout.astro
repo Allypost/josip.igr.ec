@@ -10,6 +10,12 @@ import BaseHead, {
 } from "~components/BaseHead.astro";
 import Footer from "~components/Footer.astro";
 import Header from "~components/Header.astro";
+import type { Simplify, SetNonNullable } from "type-fest";
+import type { HTMLAttributes } from "astro/types";
+
+type PreloadFile = Simplify<
+  SetNonNullable<Required<Pick<HTMLAttributes<"link">, "href" | "as" | "type">>>
+>;
 
 type Props = {
   title?: string;
@@ -17,16 +23,23 @@ type Props = {
   image?: ImageProp;
   mainClass?: string;
   seo?: SeoProps;
+  preloadFiles?: PreloadFile[];
 };
 
-const { title, description, image, mainClass, seo } = Astro.props;
+const { title, description, image, mainClass, seo, preloadFiles } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} image={image} seo={seo} />
-    <meta name="last-modified" content={BUILD_DATE.toISOString()} />
+    <BaseHead
+      title={title}
+      description={description}
+      image={image}
+      seo={seo}
+      preloadFiles={preloadFiles}
+    />
+    <meta name="build-date" content={BUILD_DATE.toISOString()} />
   </head>
   <body class="flex min-h-screen flex-col bg-base-bg bg-cover text-base-fg">
     <Header />
