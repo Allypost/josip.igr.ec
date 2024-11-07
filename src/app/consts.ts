@@ -219,6 +219,11 @@ export const links = {
     text: "Twitter",
     icon: "simple-icons:twitter",
   },
+  bluesky: {
+    href: "https://bsky.app/profile/allypost.net",
+    text: "Bluesky",
+    icon: "simple-icons:bluesky",
+  },
   keybase: {
     href: "https://keybase.io/allypost",
     text: "keybase",
