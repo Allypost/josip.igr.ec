@@ -1,4 +1,7 @@
-import crypto, { type BinaryToTextEncoding } from "node:crypto";
+import crypto, {
+  type BinaryToTextEncoding,
+  type HashOptions,
+} from "node:crypto";
 import { getCollection } from "astro:content";
 
 import {
@@ -45,11 +48,12 @@ export const hashData = (
   data: unknown,
   props?: Partial<{
     hashAlgorithm: string;
+    hashAlgorithmOptions: HashOptions;
     encoding: BinaryToTextEncoding;
   }>,
 ) => {
   return crypto
-    .createHash(props?.hashAlgorithm ?? "sha256")
+    .createHash(props?.hashAlgorithm ?? "sha256", props?.hashAlgorithmOptions)
     .update(JSON.stringify(data))
     .digest(props?.encoding ?? "base64url");
 };

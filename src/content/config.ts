@@ -41,13 +41,13 @@ const blog = defineCollection({
       })
       .and(
         optionalWholeObject({
-          heroImage: image(),
+          heroImage: image().optional(),
           heroImageAlt: z.string(),
         }),
       )
       .and(
         optionalWholeObject({
-          socialImage: image(),
+          socialImage: image().optional(),
           socialImageAlt: z.string(),
         }),
       ),

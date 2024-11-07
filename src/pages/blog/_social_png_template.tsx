@@ -96,7 +96,9 @@ export const SocialTemplate = (
             width: "70%",
           }}
         >
-          {props.data.description.trim().replace(/[^\w]*$/, "")}
+          {props.data.socialImageAlt ||
+            props.data.heroImageAlt ||
+            props.data.description.trim().replace(/[^\w]*$/, "")}
         </div>
       </div>
     </div>

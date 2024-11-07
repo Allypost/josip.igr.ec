@@ -69,7 +69,7 @@ export const HeroTemplate = (
           color: "rgb(46,0,84)",
         }}
       >
-        {props.data.title}
+        {props.data.heroImageAlt || props.data.title}
       </div>
     </div>
   );
