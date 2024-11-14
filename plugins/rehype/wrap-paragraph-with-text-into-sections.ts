@@ -1,4 +1,4 @@
-import type { Element } from "hast";
+import type { Element, ElementContent } from "hast";
 import { is } from "unist-util-is";
 import type { Root } from "hast";
 import type { Plugin } from "unified";
@@ -16,14 +16,13 @@ export const rehypeWrapParagraphWithTextIntoSections: Plugin<[], Root> =
 
     // Suck up all nodes before the first heading
     let i = 0;
-    while (i < tree.children.length) {
+    for (; i < tree.children.length; i++) {
       const node = tree.children[i];
 
       if (is(node, "element")) {
         break;
       }
 
-      i += 1;
       currentSection.children.push(node as never);
     }
 
@@ -33,6 +32,22 @@ export const rehypeWrapParagraphWithTextIntoSections: Plugin<[], Root> =
       const node = tree.children[i]!;
 
       if (is(node, "element") && /^h(\d+)$/.test(node.tagName)) {
+        {
+          const [mdx, nonMdx] = currentSection.children.reduce((acc, el) => {
+            if (el.type.startsWith("mdxjs")) {
+              acc[0].push(el);
+              return acc;
+            }
+
+            acc[1].push(el);
+            return acc;
+          }, [[] as ElementContent[], [] as ElementContent[]]);
+          // Ignore MDX stuff for sections
+          currentSection.children = nonMdx;
+          // Add MDX stuff directly to children
+          newChildren.push(...mdx as never[]);
+        }
+
         // If a heading is found, push the current section and start a new one
         if (currentSection.children.length > 0) {
           newChildren.push(currentSection);
