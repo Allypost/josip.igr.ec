@@ -77,14 +77,23 @@ const images = await getImages();
           type={`image/${props.options.format}`}
         />
       ))}
-      <img
-        src={srcStr}
-        loading={Astro.props.loading ?? "lazy"}
-        decoding={Astro.props.decoding ?? "async"}
-        height={src.height}
-        width={src.width}
-        {...Astro.props}
-      />
+      {typeof src === "string" ? (
+        <img
+          {...Astro.props}
+          loading={Astro.props.loading ?? "lazy"}
+          decoding={Astro.props.decoding ?? "async"}
+          src={srcStr}
+        />
+      ) : (
+        <img
+          {...Astro.props}
+          loading={Astro.props.loading ?? "lazy"}
+          decoding={Astro.props.decoding ?? "async"}
+          height={src.height}
+          width={src.width}
+          src={srcStr}
+        />
+      )}
     </picture>
   )
 }

@@ -20,7 +20,7 @@ export async function GET(context) {
           length: 0,
         }
       : {
-          url: `/blog/${post.slug}.hero.webp`,
+          url: `/blog/${post.id}.hero.webp`,
           type: `image/webp`,
           length: 0,
         };
@@ -39,10 +39,11 @@ export async function GET(context) {
     site: context.site,
     items: posts.map((post) => ({
       ...post.data,
-      link: `/blog/${post.slug}/`,
+      link: `/blog/${post.id}/`,
       author: post.data.author ?? "Josip Igrec <josip@igr.ec>",
       categories: post.data.tags,
       enclosure: heroImages.get(post.id),
+      content: post.rendered?.html,
     })),
   });
 }

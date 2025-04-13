@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry } from "astro:content";
+import { render, type CollectionEntry } from "astro:content";
 
 import { cn } from "~/app/css";
 import { getVisibleBlogPosts } from "~/app/helpers";
@@ -14,7 +14,7 @@ import { heroPostHash } from "./[...slug].hero.webp";
 export async function getStaticPaths() {
   return (await getVisibleBlogPosts()).map((post) => ({
     params: {
-      slug: post.slug,
+      slug: post.id,
     },
     props: post,
   }));
@@ -23,14 +23,14 @@ export async function getStaticPaths() {
 export type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
-const { Content, remarkPluginFrontmatter } = await post.render();
+const { Content, remarkPluginFrontmatter } = await render(post);
 
 const generatedSocialImage = new URL(
-  `/blog/${post.slug}.og.webp?_h=${await ogPostHash(post)}`,
+  `/blog/${post.id}.og.webp?_h=${await ogPostHash(post)}`,
   Astro.url,
 );
 const generatedHeroImage = new URL(
-  `/blog/${post.slug}.hero.webp?_h=${await heroPostHash(post)}`,
+  `/blog/${post.id}.hero.webp?_h=${await heroPostHash(post)}`,
   Astro.url,
 );
 

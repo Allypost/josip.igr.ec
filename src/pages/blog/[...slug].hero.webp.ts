@@ -3,15 +3,11 @@ import type { APIRoute } from "astro";
 import satori, { type Font } from "satori";
 import { Resvg } from "@resvg/resvg-js";
 import fs from "node:fs";
+import sharp from "sharp";
 
 import { getVisibleBlogPosts, hashData } from "~/app/helpers";
 import { HeroTemplate } from "./_hero_png_template";
-import sharp from "sharp";
-
-const IOSEVKALLY_FONT_DIR_URL = new URL(
-  "./src/assets/font/IosevkAlly/",
-  `file://${String(process.env.npm_config_local_prefix)}`,
-);
+import { IOSEVKALLY_FONT_DIR_URL } from "~/app/consts";
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const heroPostHash = async (post: CollectionEntry<"blog">) => {
@@ -25,7 +21,7 @@ export const heroPostHash = async (post: CollectionEntry<"blog">) => {
 export async function getStaticPaths() {
   return (await getVisibleBlogPosts()).map((post) => ({
     params: {
-      slug: post.slug,
+      slug: post.id,
     },
     props: {
       ...post,
@@ -60,7 +56,6 @@ export const GET: APIRoute<BlogPost> = async ({ props }) => {
   const svg = await satori(
     HeroTemplate({
       ...props,
-      rendered: await props.render(),
     }) as never,
     {
       width: 1280,

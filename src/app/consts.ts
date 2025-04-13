@@ -46,6 +46,13 @@ export const SHOW_UNLISTED_IN_PRODUCTION = !FALSY_ENV_STRINGS.includes(
 
 export const SHOW_UNLISTED = !IS_PRODUCTION || SHOW_UNLISTED_IN_PRODUCTION;
 
+export const FONT_DIR_URL = new URL(
+  "./src/assets/font/",
+  `file://${String(process.env.npm_config_local_prefix?.replace(/\/*$/, ""))}/`,
+);
+
+export const IOSEVKALLY_FONT_DIR_URL = new URL("./IosevkAlly/", FONT_DIR_URL);
+
 const _technologyIcons = <
   const T extends {
     [key: string]: {

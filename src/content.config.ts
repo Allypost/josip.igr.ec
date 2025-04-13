@@ -1,3 +1,4 @@
+import { glob } from "astro/loaders";
 import type { ZodNever, ZodOptional, ZodRawShape } from "astro/zod";
 import { defineCollection, z } from "astro:content";
 
@@ -15,7 +16,10 @@ const optionalWholeObject = <T extends ZodRawShape>(x: T) => {
 };
 
 const blog = defineCollection({
-  type: "content",
+  loader: glob({
+    pattern: "**/[^_]*.{md,mdx}",
+    base: "./src/data/blog",
+  }),
   // Type-check frontmatter using a schema
   schema: ({ image }) =>
     z

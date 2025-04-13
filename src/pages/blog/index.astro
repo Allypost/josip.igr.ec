@@ -28,7 +28,7 @@ const posts = await getListableBlogPosts();
                 {post.data.draft ? <span>❗DRAFT❗</span> : null}
                 {post.data.test ? <span>❗TEST❗</span> : null}
                 <FormattedDate class="opacity-50" date={post.data.pubDate} />
-                <a class="link-monochrome px-1" href={`/blog/${post.slug}/`}>
+                <a class="link-monochrome px-1" href={`/blog/${post.id}/`}>
                   <h2 class="line-clamp-1 text-xl">{post.data.title}</h2>
                 </a>
               </article>

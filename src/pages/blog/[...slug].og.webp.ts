@@ -1,4 +1,5 @@
 import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
 import type { APIRoute } from "astro";
 import satori, { type Font } from "satori";
 import { Resvg } from "@resvg/resvg-js";
@@ -7,14 +8,10 @@ import sharp from "sharp";
 
 import { getVisibleBlogPosts, hashData } from "~/app/helpers";
 import { SocialTemplate } from "./_social_png_template";
-
-const IOSEVKALLY_FONT_DIR_URL = new URL(
-  "./src/assets/font/IosevkAlly/",
-  `file://${String(process.env.npm_config_local_prefix)}`,
-);
+import { IOSEVKALLY_FONT_DIR_URL } from "~/app/consts";
 
 export const ogPostHash = async (post: CollectionEntry<"blog">) => {
-  const { remarkPluginFrontmatter } = await post.render();
+  const { remarkPluginFrontmatter } = await render(post);
 
   const data = {
     title: post.data.title,
@@ -31,7 +28,7 @@ export const ogPostHash = async (post: CollectionEntry<"blog">) => {
 export async function getStaticPaths() {
   return (await getVisibleBlogPosts()).map((post) => ({
     params: {
-      slug: post.slug,
+      slug: post.id,
     },
     props: {
       ...post,
@@ -66,7 +63,7 @@ export const GET: APIRoute<BlogPost> = async ({ props }) => {
   const svg = await satori(
     SocialTemplate({
       ...props,
-      rendered: await props.render(),
+      rendered: await render(props),
     }) as never,
     {
       width: 1200,

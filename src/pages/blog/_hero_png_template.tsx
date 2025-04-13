@@ -2,13 +2,11 @@ import type { CollectionEntry } from "astro:content";
 // @ts-expect-error: dumb stuff
 import React from "react";
 
-type BlogExtraProps = Awaited<ReturnType<CollectionEntry<"blog">["render"]>>;
+export type Props = {
+  data: Pick<CollectionEntry<"blog">["data"], "title" | "heroImageAlt">;
+};
 
-export const HeroTemplate = (
-  props: CollectionEntry<"blog"> & {
-    rendered: Omit<BlogExtraProps, "Content">;
-  },
-) => {
+export const HeroTemplate = (props: Props) => {
   return (
     <div
       style={{

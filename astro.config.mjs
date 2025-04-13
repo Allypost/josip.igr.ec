@@ -112,13 +112,14 @@ export default defineConfig({
               }
 
               if (node.tagName === "pre") {
-                if (Array.isArray(node.properties.className)) {
-                  if (node.properties.className.includes("astro-code")) {
-                    node.properties.className = ["code-contents"];
+                const className = node.properties.class;
+                if (typeof className === "string") {
+                  if (className.includes("astro-code")) {
+                    node.properties.class = "code-contents";
                   }
                 }
 
-                delete node.properties.tabIndex;
+                delete node.properties.tabindex;
               }
             }
           },
@@ -139,6 +140,15 @@ export default defineConfig({
     },
     define: {
       __DATE__: `"${new Date().toISOString()}"`,
+    },
+    build: {
+      rollupOptions: {
+        output: {
+          assetFileNames: "assets/[hash].[ext]",
+          chunkFileNames: "assets/[hash].js",
+          entryFileNames: "[hash].js",
+        },
+      },
     },
   },
   server: {

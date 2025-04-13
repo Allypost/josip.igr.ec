@@ -1,4 +1,4 @@
-import type { CollectionEntry } from "astro:content";
+import type { CollectionEntry, RenderResult } from "astro:content";
 // @ts-expect-error: dumb stuff
 import React from "react";
 
@@ -13,11 +13,9 @@ const linearGradient = (
   return `linear-gradient(${rotation.toString()}deg, ${parts.join(", ")})`;
 };
 
-type BlogExtraProps = Awaited<ReturnType<CollectionEntry<"blog">["render"]>>;
-
 export const SocialTemplate = (
-  props: CollectionEntry<"blog"> & {
-    rendered: Omit<BlogExtraProps, "Content">;
+  props: Omit<CollectionEntry<"blog">, "rendered"> & {
+    rendered: RenderResult;
   },
 ) => {
   return (

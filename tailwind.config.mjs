@@ -1,19 +1,19 @@
 import defaultTheme from "tailwindcss/defaultTheme";
 
-const fontFamilySans = [
+export const fontFamilySans = [
   '"IosevkAllyP"',
   '"Iosevka Aile"',
   '"Iosevka"',
   ...defaultTheme.fontFamily.sans,
 ];
 
-const fontFamilyMono = [
+export const fontFamilyMono = [
   '"IosevkAlly"',
   '"Iosevka"',
   ...defaultTheme.fontFamily.mono,
 ];
 
-const fontFamilyDisplay = [
+export const fontFamilyDisplay = [
   '"IosevkAllySP"',
   '"Iosevka Etoile"',
   ...fontFamilySans,
