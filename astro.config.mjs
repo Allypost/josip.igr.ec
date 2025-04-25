@@ -65,12 +65,12 @@ export default defineConfig({
           containerClassName: "code-container",
           /**
            *
-           * @param {string|undefined} lanugage
+           * @param {string|undefined} language
            * @param {string|undefined} title
            */
-          containerProperties: (lanugage, title) => ({
+          containerProperties: (language, title) => ({
             title,
-            "data-language": lanugage,
+            "data-language": language,
           }),
           titleTagName: "h6",
           titleClassName: "code-title",

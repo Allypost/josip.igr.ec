@@ -210,10 +210,10 @@ const {
     counter-reset: blog-figure;
 
     ::marker {
-      @apply text-highlight/70;
+      @apply text-highlight/85;
 
       &:nth-child(odd) {
-        @apply text-highlight/90;
+        @apply text-highlight/100;
       }
     }
 
@@ -240,15 +240,18 @@ const {
     }
 
     a[href^="#"] {
-      scroll-margin-top: 6rem;
+      scroll-margin-top: 3.5rem;
     }
 
     .code-container {
-      @apply col-span-full flex flex-col rounded-md border border-code-bg p-0.5 transition-[width];
+      @apply col-span-full flex flex-col rounded-md border border-code-bg p-0.5 transition-[width] max-md:!ml-0 max-md:!w-full;
+      margin-left: -10%;
       box-shadow: 0 0 4px rgb(var(--color-code-bg));
+      width: 120%;
+      max-width: 98vw;
 
       .code-title {
-        @apply m-0 mr-auto rounded-t border-t-2 border-highlight bg-code-bg px-3 py-2 font-bold;
+        @apply m-0 mr-auto rounded-t border-b-4 border-t-2 border-highlight border-b-base-bg/25 bg-code-bg px-3 py-2 font-bold;
 
         &:before {
           display: none;
@@ -256,7 +259,7 @@ const {
       }
 
       .code-title + pre {
-        @apply rounded-tl-none border-t-0;
+        @apply !mt-0 rounded-tl-none border-t-0;
       }
 
       pre.code-contents,
@@ -293,7 +296,7 @@ const {
     }
 
     blockquote {
-      @apply border-l-4 border-gray-300 py-2 pl-4;
+      @apply border-l-4 border-highlight-muted py-2 pl-4;
 
       p,
       div {
@@ -368,6 +371,10 @@ const {
       &:hover > a {
         @apply inline;
       }
+
+      > code {
+        @apply bg-code-bg text-highlight-muted;
+      }
     }
 
     h1 {
@@ -382,7 +389,7 @@ const {
     }
     h1,
     h2 {
-      @apply mt-24 text-3xl;
+      @apply mt-14 text-3xl;
 
       & + * {
         @apply !mt-4;
@@ -458,6 +465,10 @@ const {
 
     mark {
       @apply rounded-sm bg-highlight px-1 text-base-bg;
+    }
+
+    hr {
+      @apply mx-auto w-10/12 border-base-fg/40;
     }
 
     .footnotes {
