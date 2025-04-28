@@ -266,6 +266,10 @@ const {
       pre.code-contents span {
         @apply !bg-code-bg dark:!text-[--dark-color] dark:![font-style:--dark-font-style,inherit] dark:![font-weight:--dark-font-weight,inherit] dark:![text-decoration:--dark-text-decoration,inherit];
       }
+
+      pre.code-contents {
+        @apply leading-tight;
+      }
     }
 
     pre {
@@ -333,14 +337,22 @@ const {
       }
     }
 
+    section > h1:not(.code-title),
+    section > h2:not(.code-title),
+    section > h3:not(.code-title),
+    section > h4:not(.code-title),
+    section > h5:not(.code-title),
+    section > h6:not(.code-title) {
+      @apply sticky -top-px z-10 mb-0 rounded-b-md bg-base-bg p-1;
+    }
+
     h1,
     h2,
     h3,
     h4,
     h5,
     h6 {
-      @apply mb-2 mt-12 font-bold;
-      @apply sticky -top-px z-10 mb-0 bg-base-bg text-3xl;
+      @apply mb-2 mt-12 text-3xl font-bold;
       scroll-margin-top: 1rem;
 
       @media (max-height: 350px) {

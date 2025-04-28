@@ -60,7 +60,7 @@ export const SocialTemplate = (
           fontWeight: 700,
           fontFamily: "IosevkAllySP",
           fontSize: "2.75em",
-          marginTop: "auto",
+          marginTop: 0,
           marginBottom: "auto",
         }}
       >
