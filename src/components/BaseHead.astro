@@ -1,6 +1,5 @@
 ---
 import type { ImageMetadata } from "astro";
-import { ClientRouter } from "astro:transitions";
 import type { DeepPartial } from "ts-essentials";
 import { SEO, type Link, type Meta, type TwitterCardType } from "astro-seo";
 import merge from "lodash/fp/merge";
@@ -186,7 +185,6 @@ const preloadFonts = [
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<ClientRouter />
 
 <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -218,6 +216,27 @@ const preloadFonts = [
   rel="stylesheet"
   href={remoteCdnUrl("/pkg/font/IosevkAlly/full-family.css")}
 />
+<script type="speculationrules">
+  {
+    "prerender": [
+      {
+        "where": {
+          "href_matches": "/*"
+        },
+        "eagerness": "moderate"
+      }
+    ]
+  }
+</script>
+<script>
+  import { listen } from "quicklink";
+  window.addEventListener("load", () => {
+    listen({
+      delay: 300,
+      prerender: true,
+    });
+  });
+</script>
 
 <SEO {...seoData} />
 {
